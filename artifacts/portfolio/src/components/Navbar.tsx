@@ -16,7 +16,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("");
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,11 +104,11 @@ export default function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
               data-testid="button-theme-toggle"
               className="text-muted-foreground hover:text-foreground"
             >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               <span className="sr-only">Toggle theme</span>
             </Button>
           </div>
@@ -117,10 +117,10 @@ export default function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
               data-testid="button-theme-toggle-mobile"
             >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
             <Sheet>
               <SheetTrigger asChild>
