@@ -5,33 +5,40 @@ import { useTheme } from "./ThemeProvider";
 export default function AsciiArt() {
   const { theme } = useTheme();
 
-  // grayscale → sepia → hue-rotate shifts the tones to blue accent
-  // dark mode: slightly brighter; light mode: higher contrast
-  const filterStr =
-    theme === "dark"
-      ? "grayscale(1) contrast(1.25) sepia(1) saturate(5) hue-rotate(192deg) brightness(0.82)"
-      : "grayscale(1) contrast(1.4)  sepia(1) saturate(6) hue-rotate(192deg) brightness(0.78)";
+  // Blue accent fills the gaps between dots; grayscale photo shows through dots.
+  // Dark pixels → dark dots on blue → face features clearly visible.
+  // No hue-rotate tricks that distort dark/hair areas.
+  const bgColor = theme === "dark" ? "#2F81F7" : "#1A6BD4";
 
   return (
     <motion.div
-      className="w-full max-w-[420px] aspect-square shrink-0"
-      initial={{ opacity: 0, scale: 0.96 }}
+      className="w-full max-w-[400px] shrink-0 rounded-2xl overflow-hidden shadow-xl"
+      style={{ background: bgColor, aspectRatio: "1" }}
+      initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.2, ease: "easeOut" }}
+      transition={{ duration: 1, ease: "easeOut" }}
       data-testid="ascii-canvas"
-      style={{
-        backgroundImage: `url(${profileImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center 8%",
-        // Show the image only through dot-grid holes
-        WebkitMaskImage:
-          "radial-gradient(circle at 50% 50%, black 44%, transparent 44%)",
-        WebkitMaskSize: "11px 11px",
-        maskImage:
-          "radial-gradient(circle at 50% 50%, black 44%, transparent 44%)",
-        maskSize: "11px 11px",
-        filter: filterStr,
-      }}
-    />
+    >
+      {/*
+       * Inner div = the actual photo shown through a dot-grid mask.
+       * Grayscale + contrast make face features crisp.
+       * The blue parent background bleeds through the transparent gaps between dots.
+       */}
+      <div
+        className="w-full h-full"
+        style={{
+          backgroundImage: `url(${profileImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 15%",
+          filter: "grayscale(1) contrast(1.5) brightness(0.88)",
+          WebkitMaskImage:
+            "radial-gradient(circle at 50% 50%, black 46%, transparent 46%)",
+          WebkitMaskSize: "12px 12px",
+          maskImage:
+            "radial-gradient(circle at 50% 50%, black 46%, transparent 46%)",
+          maskSize: "12px 12px",
+        }}
+      />
+    </motion.div>
   );
 }
