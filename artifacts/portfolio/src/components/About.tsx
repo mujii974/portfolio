@@ -10,10 +10,10 @@ const SKILLS = [
 ];
 
 const STATS = [
-  { value: 3, suffix: "+", label: "Years Experience", isString: false },
-  { value: 10, suffix: "+", label: "Projects", isString: false },
   { value: "BSc", suffix: "", label: "Data & Cybersecurity", isString: true },
   { value: "CEH v13", suffix: "", label: "In Progress", isString: true },
+  { value: "Doha", suffix: "", label: "Qatar", isString: true },
+  { value: "2026", suffix: "", label: "Graduate", isString: true },
 ] as const;
 
 type Stat = typeof STATS[number];

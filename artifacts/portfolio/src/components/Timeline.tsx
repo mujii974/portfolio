@@ -57,35 +57,34 @@ const EDUCATION = [
   }
 ];
 
-function TimelineNode({ item, isLeft }: { item: any, isLeft: boolean }) {
+function TimelineNode({ item, isLeft }: { item: typeof WORK[0] | typeof EDUCATION[0], isLeft: boolean }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const Icon = item.icon;
 
   return (
-    <div ref={ref} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group w-full mb-12 last:mb-0">
-      
-      {/* Center line dot */}
+    <div ref={ref} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group w-full mb-10 last:mb-0">
+      {/* Center dot */}
       <div className="absolute left-0 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-accent border-4 border-background z-10" />
-      
+
       {/* Content box */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, x: isLeft ? -30 : 30 }}
         animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isLeft ? -30 : 30 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-[calc(100%-2rem)] md:w-[calc(50%-2rem)] p-6 rounded-2xl bg-card border border-border ml-auto md:ml-0"
+        className="w-[calc(100%-2rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-card border border-border ml-auto md:ml-0"
       >
         <div className="flex items-center gap-3 mb-2">
-          <Icon className="w-5 h-5 text-accent" />
-          <h3 className="text-xl font-bold">{item.title}</h3>
+          <Icon className="w-5 h-5 text-accent shrink-0" />
+          <h3 className="text-lg font-bold leading-snug">{item.title}</h3>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 text-sm font-mono text-muted-foreground">
-          <span>{item.company || item.institution}</span>
-          <span className="text-accent/80">{item.period}</span>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-4 text-sm font-mono text-muted-foreground">
+          <span>{"company" in item ? item.company : item.institution}</span>
+          <span className="text-accent/80 shrink-0">{item.period}</span>
         </div>
         {item.points.length > 0 && (
-          <ul className="space-y-2 text-muted-foreground">
-            {item.points.map((point: string, i: number) => (
+          <ul className="space-y-2 text-muted-foreground text-sm">
+            {item.points.map((point, i) => (
               <li key={i} className="flex items-start gap-2">
                 <span className="text-accent mt-1 opacity-50">•</span>
                 <span className="leading-relaxed">{point}</span>
@@ -94,6 +93,31 @@ function TimelineNode({ item, isLeft }: { item: any, isLeft: boolean }) {
           </ul>
         )}
       </motion.div>
+    </div>
+  );
+}
+
+function TimelineSection({
+  title,
+  items,
+}: {
+  title: string;
+  items: typeof WORK | typeof EDUCATION;
+}) {
+  return (
+    <div className="mb-16 last:mb-0">
+      {/* Section heading — outside the relative line container so it never overlaps */}
+      <h3 className="text-xl font-mono font-semibold mb-8 pl-8 md:pl-0 text-muted-foreground">
+        {title}
+      </h3>
+
+      {/* Each section gets its own relative container + center line */}
+      <div className="relative max-w-4xl mx-auto">
+        <div className="absolute left-0 md:left-1/2 -translate-x-1/2 top-2 bottom-2 w-px bg-border" />
+        {items.map((item, i) => (
+          <TimelineNode key={i} item={item as typeof WORK[0]} isLeft={i % 2 === 0} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -113,24 +137,8 @@ export default function Timeline() {
           <span className="text-accent">/</span> experience &amp; education
         </h2>
 
-        <div className="relative max-w-4xl mx-auto">
-          {/* Center line */}
-          <div className="absolute left-0 md:left-1/2 -translate-x-1/2 top-2 bottom-2 w-px bg-border" />
-          
-          <div className="mb-16">
-            <h3 className="text-2xl font-mono font-semibold mb-8 pl-8 md:pl-0 md:text-center text-muted-foreground">Experience</h3>
-            {WORK.map((item, i) => (
-              <TimelineNode key={i} item={item} isLeft={i % 2 === 0} />
-            ))}
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-mono font-semibold mb-8 pl-8 md:pl-0 md:text-center text-muted-foreground">Education</h3>
-            {EDUCATION.map((item, i) => (
-              <TimelineNode key={i} item={item} isLeft={i % 2 === 0} />
-            ))}
-          </div>
-        </div>
+        <TimelineSection title="Experience" items={WORK} />
+        <TimelineSection title="Education" items={EDUCATION} />
       </motion.div>
     </section>
   );

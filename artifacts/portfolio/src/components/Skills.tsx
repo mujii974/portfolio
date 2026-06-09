@@ -28,11 +28,6 @@ const SKILL_GROUPS = [
     skills: ["Git", "Docker", "VS Code", "IntelliJ IDEA", "VMware", "VirtualBox", "Kali Linux", "Ubuntu"]
   },
   {
-    title: "Cloud (Studied)",
-    color: "bg-sky-400",
-    skills: ["AWS", "Azure", "GCP (EC2, S3, IAM, Lambda, VPC, CloudTrail)"]
-  },
-  {
     title: "IoT / OT",
     color: "bg-purple-500",
     skills: ["Raspberry Pi", "Binwalk", "MQTT", "Arduino", "ESP32", "Zigbee"]
