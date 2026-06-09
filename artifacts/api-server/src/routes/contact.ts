@@ -2,6 +2,8 @@ import { Router, type IRouter } from "express";
 import { Resend } from "resend";
 import rateLimit from "express-rate-limit";
 import { logger } from "../lib/logger";
+import { db, contactMessagesTable } from "@workspace/db";
+import { desc } from "drizzle-orm";
 
 const router: IRouter = Router();
 
@@ -54,9 +56,24 @@ router.post("/contact", contactLimiter, async (req, res) => {
     return;
   }
 
+  // Persist to database first so the message is never lost, even if email fails
+  try {
+    await db.insert(contactMessagesTable).values({
+      name: name.trim(),
+      email: email.trim(),
+      message: message.trim(),
+    });
+  } catch (dbError) {
+    logger.error({ dbError }, "Failed to persist contact message to database");
+    res.status(500).json({ error: "Failed to send message. Please try again." });
+    return;
+  }
+
   const apiKey = process.env["RESEND_API_KEY"];
   if (!apiKey) {
-    res.status(503).json({ error: "Email service is not configured. Please try again later." });
+    // Message is already saved — still respond with success so the user isn't alarmed
+    logger.warn("RESEND_API_KEY not set; contact message saved to DB but email not sent");
+    res.json({ success: true });
     return;
   }
 
@@ -84,12 +101,41 @@ router.post("/contact", contactLimiter, async (req, res) => {
   });
 
   if (error) {
-    logger.error({ resendError: error }, "Resend email failed");
-    res.status(500).json({ error: "Failed to send message. Please try again." });
-    return;
+    // Message is already safely stored in DB — log the email failure but still return success
+    logger.error({ resendError: error }, "Resend email failed (message already saved to DB)");
   }
 
   res.json({ success: true });
+});
+
+// Admin endpoint — list all contact submissions, newest first
+// Requires a valid Bearer token matching the ADMIN_API_KEY environment variable
+router.get("/admin/contact-messages", async (req, res) => {
+  const adminKey = process.env["ADMIN_API_KEY"];
+  if (!adminKey) {
+    logger.error("ADMIN_API_KEY is not set; admin endpoint is disabled");
+    res.status(503).json({ error: "Admin access is not configured." });
+    return;
+  }
+
+  const authHeader = req.headers["authorization"] ?? "";
+  const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+  if (!token || token !== adminKey) {
+    res.status(401).json({ error: "Unauthorized." });
+    return;
+  }
+
+  try {
+    const messages = await db
+      .select()
+      .from(contactMessagesTable)
+      .orderBy(desc(contactMessagesTable.createdAt));
+    logger.info({ count: messages.length }, "Admin fetched contact messages");
+    res.json({ messages });
+  } catch (dbError) {
+    logger.error({ dbError }, "Failed to fetch contact messages");
+    res.status(500).json({ error: "Failed to retrieve messages." });
+  }
 });
 
 export default router;
