@@ -3,7 +3,7 @@ import { useTheme } from "./ThemeProvider";
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,7 +17,7 @@ export default function ParticleBackground() {
     const particleCount = isMobile ? 60 : 140;
     const connectionDistance = 130;
     const mouseRadius = 180;
-    const color = theme === "dark" ? "47,129,247" : "26,107,212";
+    const color = resolvedTheme === "dark" ? "47,129,247" : "26,107,212";
 
     let width = window.innerWidth;
     let height = window.innerHeight;
@@ -114,7 +114,7 @@ export default function ParticleBackground() {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
     };
-  }, [theme]);
+  }, [resolvedTheme]);
 
   return (
     <canvas
