@@ -75,7 +75,7 @@ export default function Hero() {
           className="order-1 lg:order-2 flex flex-col items-center lg:items-start text-center lg:text-left"
         >
           <p className="text-xl md:text-2xl text-muted-foreground mb-2">
-            hi, I'm
+            Hi, I'm
           </p>
           <h1 className="text-5xl md:text-7xl font-bold text-accent mb-4 tracking-tight">
             Mujii.
