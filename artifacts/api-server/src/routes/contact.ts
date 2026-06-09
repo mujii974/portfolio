@@ -61,6 +61,7 @@ router.post("/contact", contactLimiter, async (req, res) => {
   }
 
   const recipient = process.env["CONTACT_RECIPIENT_EMAIL"] ?? "mujtaba.sha19@gmail.com";
+  const fromAddress = process.env["RESEND_FROM_EMAIL"] ?? "Portfolio Contact <onboarding@resend.dev>";
 
   // Escape all user-supplied values before injecting into HTML
   const safeName = escapeHtml(name.trim());
@@ -70,7 +71,7 @@ router.post("/contact", contactLimiter, async (req, res) => {
   const resend = new Resend(apiKey);
 
   const { error } = await resend.emails.send({
-    from: "Portfolio Contact <onboarding@resend.dev>",
+    from: fromAddress,
     to: recipient,
     replyTo: email.trim(),
     subject: `Portfolio message from ${safeName}`,
