@@ -49,8 +49,8 @@ function StatCard({ stat }: { stat: Stat }) {
   }, [inView, stat]);
 
   return (
-    <div ref={ref} className="flex flex-col items-center justify-center p-6 border border-border rounded-2xl bg-card hover:border-accent transition-colors">
-      <span className="text-3xl font-bold text-foreground font-mono">
+    <div ref={ref} className="flex flex-col items-center justify-center p-6 border border-border rounded-2xl bg-card hover:border-accent/50 transition-colors">
+      <span className="text-2xl sm:text-3xl font-semibold text-foreground">
         {stat.isString ? stat.value : count}{stat.suffix}
       </span>
       <span className="text-sm text-muted-foreground mt-2 text-center">{stat.label}</span>
@@ -65,16 +65,24 @@ export default function About() {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h2 className="text-3xl font-mono font-bold mb-12">
-          <span className="text-accent">/</span> about me
-        </h2>
+        <div className="mb-16">
+          <p className="text-sm font-mono uppercase tracking-[0.12em] text-muted-foreground mb-3">
+            About
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground">
+            Precision over noise.
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
+            <p className="text-lg leading-relaxed text-muted-foreground mb-6">
+              Data &amp; Cybersecurity graduate from UDST, Doha. I'm drawn to the intersection of offensive security and secure system design — from pentesting isolated networks to architecting zero-trust layers for AI systems.
+            </p>
             <p className="text-lg leading-relaxed text-muted-foreground">
-              Data &amp; Cybersecurity graduate from UDST, Doha. I'm drawn to the intersection of offensive security and secure system design — from pentesting isolated networks to architecting zero-trust layers for AI systems. Outside the lab, I've shipped real products at agencies and worked live events under pressure. Currently completing CEH v13.
+              Outside the lab, I've shipped real products at agencies and worked live events under pressure. Currently completing CEH v13.
             </p>
 
             <div className="grid grid-cols-2 gap-4 mt-8">
@@ -90,7 +98,7 @@ export default function About() {
               hidden: { opacity: 0 },
               visible: {
                 opacity: 1,
-                transition: { staggerChildren: 0.05 }
+                transition: { staggerChildren: 0.03 }
               }
             }}
             initial="hidden"
@@ -101,10 +109,10 @@ export default function About() {
               <motion.span
                 key={skill}
                 variants={{
-                  hidden: { opacity: 0, y: 20 },
+                  hidden: { opacity: 0, y: 12 },
                   visible: { opacity: 1, y: 0 }
                 }}
-                className="px-4 py-2 text-sm font-medium rounded-full border border-accent/30 bg-accent/5 text-foreground hover:bg-accent/10 hover:border-accent transition-colors"
+                className="px-3 py-1.5 text-sm rounded-md border border-border bg-card text-foreground hover:border-accent/50 transition-colors"
                 data-testid={`skill-pill-${skill.toLowerCase().replace(/[\s/]/g, "-")}`}
               >
                 {skill}

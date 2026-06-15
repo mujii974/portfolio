@@ -160,17 +160,20 @@ export default function CV() {
       >
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <h2 className="text-3xl font-mono font-bold mb-4">
-              <span className="text-accent">/</span> curriculum vitae
+            <p className="text-sm font-mono uppercase tracking-[0.12em] text-muted-foreground mb-3">
+              Curriculum Vitae
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-foreground mb-4">
+              Full background.
             </h2>
             <p className="text-muted-foreground max-w-xl">
-              A comprehensive overview of my academic background, professional experience, and technical certifications.
+              A comprehensive overview of academic background, professional experience, and technical certifications.
             </p>
           </div>
           
           <div className="flex items-center gap-6">
-            <div className="hidden sm:block qr-container relative p-2 bg-white rounded-lg border-2 border-accent shrink-0 overflow-hidden">
-              <QRCodeSVG value={qrUrl} size={64} fgColor="#000000" bgColor="transparent" />
+            <div className="hidden sm:block qr-container relative p-2 bg-card rounded-lg border border-border shrink-0 overflow-hidden">
+              <QRCodeSVG value={qrUrl} size={64} fgColor="#e8e6e3" bgColor="transparent" />
               <div className="qr-scanline" />
             </div>
             <div className="flex flex-col gap-3">

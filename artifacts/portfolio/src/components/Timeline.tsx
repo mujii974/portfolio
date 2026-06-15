@@ -57,65 +57,67 @@ const EDUCATION = [
   }
 ];
 
-function TimelineNode({ item, isLeft }: { item: typeof WORK[0] | typeof EDUCATION[0], isLeft: boolean }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
+function TimelineNode({ item, index, inView }: { item: typeof WORK[0] | typeof EDUCATION[0]; index: number; inView: boolean }) {
   const Icon = item.icon;
 
   return (
-    <div ref={ref} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group w-full mb-10 last:mb-0">
-      {/* Center dot */}
-      <div className="absolute left-0 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-accent border-4 border-background z-10" />
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: [0.22, 1, 0.36, 1]
+      }}
+      className="relative pl-10 pb-10 last:pb-0"
+    >
+      <div className="absolute left-0 top-1 w-4 h-4 rounded-full bg-accent border-4 border-background z-10" />
 
-      {/* Content box */}
-      <motion.div
-        initial={{ opacity: 0, x: isLeft ? -30 : 30 }}
-        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isLeft ? -30 : 30 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-[calc(100%-2rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-card border border-border ml-auto md:ml-0"
-      >
+      <div className="p-6 rounded-2xl bg-card border border-border hover:border-accent/50 transition-colors">
         <div className="flex items-center gap-3 mb-2">
           <Icon className="w-5 h-5 text-accent shrink-0" />
-          <h3 className="text-lg font-bold leading-snug">{item.title}</h3>
+          <h3 className="text-lg font-semibold leading-snug">{item.title}</h3>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-4 text-sm font-mono text-muted-foreground">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-4 text-sm text-muted-foreground">
           <span>{"company" in item ? item.company : item.institution}</span>
-          <span className="text-accent/80 shrink-0">{item.period}</span>
+          <span className="text-accent shrink-0 font-mono text-xs uppercase tracking-wider">{item.period}</span>
         </div>
         {item.points.length > 0 && (
           <ul className="space-y-2 text-muted-foreground text-sm">
             {item.points.map((point, i) => (
-              <li key={i} className="flex items-start gap-2">
-                <span className="text-accent mt-1 opacity-50">•</span>
+              <li key={i} className="flex items-start gap-3">
+                <span className="text-accent mt-1.5">—</span>
                 <span className="leading-relaxed">{point}</span>
               </li>
             ))}
           </ul>
         )}
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 }
 
 function TimelineSection({
   title,
   items,
+  offset = 0,
+  inView
 }: {
   title: string;
   items: typeof WORK | typeof EDUCATION;
+  offset?: number;
+  inView: boolean;
 }) {
   return (
     <div className="mb-16 last:mb-0">
-      {/* Section heading — outside the relative line container so it never overlaps */}
-      <h3 className="text-xl font-mono font-semibold mb-8 pl-8 md:pl-0 text-muted-foreground">
+      <h3 className="text-xl font-semibold mb-8 text-muted-foreground">
         {title}
       </h3>
 
-      {/* Each section gets its own relative container + center line */}
-      <div className="relative max-w-4xl mx-auto">
-        <div className="absolute left-0 md:left-1/2 -translate-x-1/2 top-2 bottom-2 w-px bg-border" />
+      <div className="relative">
+        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
         {items.map((item, i) => (
-          <TimelineNode key={i} item={item as typeof WORK[0]} isLeft={i % 2 === 0} />
+          <TimelineNode key={i} item={item as typeof WORK[0]} index={i + offset} inView={inView} />
         ))}
       </div>
     </div>
@@ -131,15 +133,19 @@ export default function Timeline() {
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-16"
       >
-        <h2 className="text-3xl font-mono font-bold mb-16">
-          <span className="text-accent">/</span> experience &amp; education
+        <p className="text-sm font-mono uppercase tracking-[0.12em] text-muted-foreground mb-3">
+          Experience & Education
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-semibold text-foreground">
+          The path so far.
         </h2>
-
-        <TimelineSection title="Experience" items={WORK} />
-        <TimelineSection title="Education" items={EDUCATION} />
       </motion.div>
+
+      <TimelineSection title="Experience" items={WORK} inView={inView} />
+      <TimelineSection title="Education" items={EDUCATION} offset={WORK.length} inView={inView} />
     </section>
   );
 }

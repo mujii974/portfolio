@@ -1,51 +1,11 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SiGithub } from "react-icons/si";
 import { Linkedin } from "lucide-react";
 import { Button } from "./ui/button";
 import AsciiArt from "./AsciiArt";
-import ParticleBackground from "./ParticleBackground";
-
-const ROLES = [
-  "Cybersecurity Engineer",
-  "Penetration Tester",
-  "Secure Software Developer",
-  "Web Developer",
-];
+import GrainBackground from "./GrainBackground";
 
 export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const currentRole = ROLES[roleIndex];
-    let timeout: NodeJS.Timeout;
-
-    if (isDeleting) {
-      if (displayText.length === 0) {
-        setIsDeleting(false);
-        setRoleIndex((prev) => (prev + 1) % ROLES.length);
-      } else {
-        timeout = setTimeout(() => {
-          setDisplayText(currentRole.substring(0, displayText.length - 1));
-        }, 50); // delete speed
-      }
-    } else {
-      if (displayText.length === currentRole.length) {
-        timeout = setTimeout(() => {
-          setIsDeleting(true);
-        }, 2500); // pause at full text
-      } else {
-        timeout = setTimeout(() => {
-          setDisplayText(currentRole.substring(0, displayText.length + 1));
-        }, 100); // type speed
-      }
-    }
-
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, roleIndex]);
-
   const scrollTo = (id: string) => {
     const el = document.querySelector(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -56,13 +16,13 @@ export default function Hero() {
       id="hero"
       className="relative min-h-[100dvh] flex items-center pt-16 overflow-hidden"
     >
-      <ParticleBackground />
+      <GrainBackground />
 
-      <div className="container mx-auto px-4 z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-4 z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="order-2 lg:order-1 flex justify-center lg:justify-end"
         >
           <AsciiArt />
@@ -71,31 +31,25 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="order-1 lg:order-2 flex flex-col items-center lg:items-start text-center lg:text-left"
         >
-          <p className="text-xl md:text-2xl text-muted-foreground mb-2">
-            Hi, I'm
+          <p className="text-sm font-mono uppercase tracking-[0.12em] text-muted-foreground mb-4">
+            Cybersecurity · Secure Development · Web
           </p>
-          <h1 className="text-5xl md:text-7xl font-bold text-accent mb-4 tracking-tight">
-            Mujii.
+
+          <h1 className="text-5xl md:text-7xl font-semibold text-foreground mb-6 tracking-tight leading-[1.05]">
+            Mujtaba Shahid
           </h1>
-          
-          <div className="h-10 md:h-12 flex items-center mb-6">
-            <span className="text-xl md:text-3xl font-mono text-foreground">
-              {displayText}
-              <span className="animate-pulse inline-block ml-1 w-3 md:w-4 h-6 md:h-8 bg-accent align-middle" />
-            </span>
-          </div>
 
-          <p className="text-lg font-mono text-muted-foreground mb-8">
-            Based in Doha, Qatar
+          <p className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8 leading-relaxed">
+            I design and build secure systems. Currently completing CEH v13 in Doha, Qatar.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-8">
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10">
             <Button
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 font-medium"
               onClick={() => scrollTo("#projects")}
               data-testid="btn-view-work"
             >
@@ -105,7 +59,7 @@ export default function Hero() {
               size="lg"
               variant="outline"
               asChild
-              className="border-primary text-primary hover:bg-primary/10"
+              className="border-border text-foreground hover:bg-muted hover:text-foreground"
               data-testid="btn-download-cv"
             >
               <a href="/cv/Mujtaba_Shahid_CV.pdf" download>
@@ -122,7 +76,7 @@ export default function Hero() {
               className="text-muted-foreground hover:text-accent transition-colors"
               data-testid="link-github-hero"
             >
-              <SiGithub className="w-6 h-6" />
+              <SiGithub className="w-5 h-5" />
               <span className="sr-only">GitHub</span>
             </a>
             <a
@@ -132,7 +86,7 @@ export default function Hero() {
               className="text-muted-foreground hover:text-accent transition-colors"
               data-testid="link-linkedin-hero"
             >
-              <Linkedin className="w-6 h-6" />
+              <Linkedin className="w-5 h-5" />
               <span className="sr-only">LinkedIn</span>
             </a>
           </div>

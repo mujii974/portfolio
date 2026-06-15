@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import profileCutout from "@assets/profile_cutout.png";
-import { useTheme } from "./ThemeProvider";
-
 // Dark (space) -> light (dense). Brighter source pixels get heavier glyphs.
 const RAMP = " .'`^\":;Il!i~+_-?][}{1)|tfjrxnuvczXYUJCLQ0OZmwqpdbkhao#MW&8%B@";
 // Characters cycled through during the scramble-in reveal.
-const SCRAMBLE = "01<>[]{}/\\|=+*#%&$XYZJCnuvxw?!:;";
+const SCRAMBLE = "01<>[]{}\\/\\|=+*#%&$XYZJCnuvxw?!:;";
+
+// Warm amber accent in RGB, matching DESIGN.md primary.
+const ACCENT_RGB = "212, 163, 115";
 
 // Crop window over the source image (head + upper torso), as fractions.
 const CROP = { x: 0.28, y: 0.2, w: 0.52, h: 0.36 };
@@ -19,8 +20,6 @@ const REVEAL_MS = 1700;
 type Cell = { px: number; py: number; char: string; op: number; settle: number };
 
 export default function AsciiArt() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const cellsRef = useRef<Cell[]>([]);
   const animatedRef = useRef(false);
@@ -124,7 +123,6 @@ export default function AsciiArt() {
     if (!ctx) return;
 
     const cells = cellsRef.current;
-    const accent = isDark ? "88, 166, 255" : "26, 107, 212";
     const cssW = parseFloat(canvas.style.width);
     const cssH = parseFloat(canvas.style.height);
 
@@ -132,17 +130,17 @@ export default function AsciiArt() {
       ctx.clearRect(0, 0, cssW, cssH);
       ctx.font = `${CELL_H}px "JetBrains Mono", monospace`;
       ctx.textBaseline = "top";
-      ctx.shadowColor = isDark ? `rgba(${accent}, 0.9)` : "transparent";
-      ctx.shadowBlur = isDark ? 6 : 0;
+      ctx.shadowColor = `rgba(${ACCENT_RGB}, 0.9)`;
+      ctx.shadowBlur = 6;
       for (let i = 0; i < cells.length; i++) {
         const c = cells[i];
         if (progress >= c.settle) {
-          ctx.fillStyle = `rgba(${accent}, ${c.op})`;
+          ctx.fillStyle = `rgba(${ACCENT_RGB}, ${c.op})`;
           ctx.fillText(c.char, c.px, c.py);
         } else {
           // Not yet settled: flicker through scramble characters, dimmed.
           const ch = SCRAMBLE[(Math.random() * SCRAMBLE.length) | 0];
-          ctx.fillStyle = `rgba(${accent}, ${c.op * 0.35})`;
+          ctx.fillStyle = `rgba(${ACCENT_RGB}, ${c.op * 0.35})`;
           ctx.fillText(ch, c.px, c.py);
         }
       }
@@ -177,7 +175,7 @@ export default function AsciiArt() {
     rafRef.current = requestAnimationFrame(tick);
 
     return () => cancelAnimationFrame(rafRef.current);
-  }, [ready, isDark]);
+  }, [ready]);
 
   return (
     <motion.div

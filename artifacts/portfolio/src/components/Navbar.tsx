@@ -74,7 +74,7 @@ export default function Navbar() {
               e.preventDefault();
               scrollTo("#hero");
             }}
-            className="font-mono font-bold text-xl text-accent hover:text-accent/80 transition-colors"
+            className="font-semibold text-xl text-foreground hover:text-accent transition-colors"
             data-testid="link-home"
           >
             Mujii
@@ -90,7 +90,7 @@ export default function Navbar() {
                     e.preventDefault();
                     scrollTo(link.href);
                   }}
-                  className={`text-sm font-medium transition-colors hover:text-accent ${
+                  className={`text-sm font-medium transition-colors hover:text-foreground ${
                     activeSection === link.href.substring(1)
                       ? "text-accent"
                       : "text-muted-foreground"
@@ -138,7 +138,7 @@ export default function Navbar() {
                         e.preventDefault();
                         scrollTo(link.href);
                       }}
-                      className={`text-lg font-medium transition-colors hover:text-accent ${
+                      className={`text-lg font-medium transition-colors hover:text-foreground ${
                         activeSection === link.href.substring(1)
                           ? "text-accent"
                           : "text-muted-foreground"
