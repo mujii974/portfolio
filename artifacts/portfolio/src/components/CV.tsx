@@ -173,7 +173,7 @@ export default function CV() {
           
           <div className="flex items-center gap-6">
             <div className="hidden sm:block qr-container relative p-2 bg-card rounded-lg border border-border shrink-0 overflow-hidden">
-              <QRCodeSVG value={qrUrl} size={64} fgColor="#e8e6e3" bgColor="transparent" />
+              <QRCodeSVG value={qrUrl} size={64} fgColor="hsl(var(--foreground))" bgColor="transparent" />
               <div className="qr-scanline" />
             </div>
             <div className="flex flex-col gap-3">

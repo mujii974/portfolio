@@ -5,7 +5,7 @@ export default function GrainBackground() {
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 50% at 20% 40%, rgba(212, 163, 115, 0.06), transparent 50%)",
+            "radial-gradient(ellipse 80% 50% at 20% 40%, hsl(var(--accent) / 0.05), transparent 50%)",
         }}
         aria-hidden="true"
       />
