@@ -6,8 +6,9 @@ const RAMP = " .'`^\":;Il!i~+_-?][}{1)|tfjrxnuvczXYUJCLQ0OZmwqpdbkhao#MW&8%B@";
 // Characters cycled through during the scramble-in reveal.
 const SCRAMBLE = "01<>[]{}\\/\\|=+*#%&$XYZJCnuvxw?!:;";
 
-// Warm amber accent in RGB, matching DESIGN.md primary.
-const ACCENT_RGB = "212, 163, 115";
+// Dark-mode: warm amber. Light-mode: near-black with a warm undertone.
+const ACCENT_RGB_DARK = "212, 163, 115";
+const ACCENT_RGB_LIGHT = "45, 35, 28";
 
 // Crop window over the source image (head + upper torso), as fractions.
 const CROP = { x: 0.28, y: 0.2, w: 0.52, h: 0.36 };
@@ -127,20 +128,21 @@ export default function AsciiArt() {
     const cssH = parseFloat(canvas.style.height);
 
     const paint = (progress: number) => {
+      const isDark = document.documentElement.classList.contains("dark");
+      const rgb = isDark ? ACCENT_RGB_DARK : ACCENT_RGB_LIGHT;
       ctx.clearRect(0, 0, cssW, cssH);
       ctx.font = `${CELL_H}px "JetBrains Mono", monospace`;
       ctx.textBaseline = "top";
-      ctx.shadowColor = `rgba(${ACCENT_RGB}, 0.9)`;
+      ctx.shadowColor = `rgba(${rgb}, 0.9)`;
       ctx.shadowBlur = 6;
       for (let i = 0; i < cells.length; i++) {
         const c = cells[i];
         if (progress >= c.settle) {
-          ctx.fillStyle = `rgba(${ACCENT_RGB}, ${c.op})`;
+          ctx.fillStyle = `rgba(${rgb}, ${c.op})`;
           ctx.fillText(c.char, c.px, c.py);
         } else {
-          // Not yet settled: flicker through scramble characters, dimmed.
           const ch = SCRAMBLE[(Math.random() * SCRAMBLE.length) | 0];
-          ctx.fillStyle = `rgba(${ACCENT_RGB}, ${c.op * 0.35})`;
+          ctx.fillStyle = `rgba(${rgb}, ${c.op * 0.35})`;
           ctx.fillText(ch, c.px, c.py);
         }
       }
@@ -175,6 +177,36 @@ export default function AsciiArt() {
     rafRef.current = requestAnimationFrame(tick);
 
     return () => cancelAnimationFrame(rafRef.current);
+  }, [ready]);
+
+  // Re-render glyphs when theme switches so the color adapts immediately.
+  useEffect(() => {
+    if (!ready) return;
+    const obs = new MutationObserver(() => {
+      if (ready) {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        const cells = cellsRef.current;
+        const cssW = parseFloat(canvas.style.width);
+        const cssH = parseFloat(canvas.style.height);
+        const isDark = document.documentElement.classList.contains("dark");
+        const rgb = isDark ? ACCENT_RGB_DARK : ACCENT_RGB_LIGHT;
+        ctx.clearRect(0, 0, cssW, cssH);
+        ctx.font = `${CELL_H}px "JetBrains Mono", monospace`;
+        ctx.textBaseline = "top";
+        ctx.shadowColor = `rgba(${rgb}, 0.9)`;
+        ctx.shadowBlur = 6;
+        for (const c of cells) {
+          ctx.fillStyle = `rgba(${rgb}, ${c.op})`;
+          ctx.fillText(c.char, c.px, c.py);
+        }
+        ctx.shadowBlur = 0;
+      }
+    });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
   }, [ready]);
 
   return (
