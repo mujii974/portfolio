@@ -6,9 +6,9 @@ const RAMP = " .'`^\":;Il!i~+_-?][}{1)|tfjrxnuvczXYUJCLQ0OZmwqpdbkhao#MW&8%B@";
 // Characters cycled through during the scramble-in reveal.
 const SCRAMBLE = "01<>[]{}\\/\\|=+*#%&$XYZJCnuvxw?!:;";
 
-// Dark-mode: warm amber. Light-mode: near-black with a warm undertone.
-const ACCENT_RGB_DARK = "212, 163, 115";
-const ACCENT_RGB_LIGHT = "45, 35, 28";
+// Dark-mode: cobalt. Light-mode: deeper cobalt for contrast on white.
+const ACCENT_RGB_DARK = "79, 142, 247";
+const ACCENT_RGB_LIGHT = "59, 125, 239";
 
 // Crop window over the source image (head + upper torso), as fractions.
 const CROP = { x: 0.28, y: 0.2, w: 0.52, h: 0.36 };

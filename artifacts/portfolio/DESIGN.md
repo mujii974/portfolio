@@ -2,14 +2,14 @@
 name: Digital Showcase Hub
 description: A precise, restrained personal portfolio where the interface itself proves craft.
 colors:
-  background: "#0f0f10"
-  surface: "#18181b"
-  surface-elevated: "#232326"
+  background: "#0a0f1a"
+  surface: "#111827"
+  surface-elevated: "#1e2a3a"
   foreground: "#e8e6e3"
-  muted: "#6e6b68"
-  border: "#27272a"
-  accent: "#d4a373"
-  accent-foreground: "#0f0f10"
+  muted: "#5d7494"
+  border: "#1e2a3a"
+  accent: "#4f8ef7"
+  accent-foreground: "#0a0f1a"
   destructive: "#ef4444"
 typography:
   display:
@@ -59,7 +59,7 @@ components:
     rounded: "{rounded.md}"
     padding: "12px 24px"
   button-primary-hover:
-    backgroundColor: "#e0b17f"
+    backgroundColor: "#6b9ef8"
     textColor: "{colors.accent-foreground}"
   button-ghost:
     backgroundColor: "transparent"
@@ -97,21 +97,21 @@ The system rejects the default "developer portfolio" playbook. No particle netwo
 
 ## 2. Colors
 
-The palette is warm, near-monochrome ink with a single amber accent. The accent must feel like a highlight, not a theme.
+The palette is deep blue-black with a single cobalt accent. The accent must feel like a highlight, not a theme.
 
 ### Primary
-- **Warm Amber** (`#d4a373`): Primary action, focus rings, key highlights, active nav state. Used on ≤10% of any screen.
+- **Cobalt** (`#4f8ef7`): Primary action, focus rings, key highlights, active nav state. Used on ≤10% of any screen.
 
 ### Neutral
-- **Ink Black** (`#0f0f10`): Page background. The deepest value; no pure `#000`.
-- **Charcoal** (`#18181b`): Card and container surfaces.
-- **Elevated Charcoal** (`#232326`): Hover states, chips, raised surfaces.
-- **Warm White** (`#e8e6e3`): Primary text. Softer than pure white for long reading.
-- **Warm Gray** (`#6e6b68`): Secondary text, metadata, captions.
-- **Border Gray** (`#27272a`): Dividers, subtle borders, separators.
+- **Blue-Black** (`#0a0f1a`): Page background. The deepest value; no pure `#000`.
+- **Deep Navy** (`#111827`): Card and container surfaces.
+- **Navy Elevated** (`#1e2a3a`): Hover states, chips, raised surfaces.
+- **Cool White** (`#e8e6e3`): Primary text. Softer than pure white for long reading.
+- **Blue Gray** (`#5d7494`): Secondary text, metadata, captions.
+- **Border Navy** (`#1e2a3a`): Dividers, subtle borders, separators.
 
 ### Named Rules
-**The One Accent Rule.** Warm amber is the only hue on the page. Use it for the one thing that needs to be noticed.
+**The One Accent Rule.** Cobalt is the only hue on the page. Use it for the one thing that needs to be noticed.
 
 **The No Pure Black Rule.** Background is `#0f0f10`, not `#000000`. Shadows, overlays, and borders must never be pure black.
 
@@ -140,7 +140,7 @@ The system is flat by default. Depth is conveyed through tonal layering (`surfac
 
 ### Shadow Vocabulary
 - **Ambient Hover** (`0 8px 24px rgba(0, 0, 0, 0.24)`): Cards and buttons on hover. Always subtle, never sharp.
-- **Focus Ring** (`0 0 0 2px #0f0f10, 0 0 0 4px #d4a373`): Accessible focus states with high contrast.
+- **Focus Ring** (`0 0 0 2px #0a0f1a, 0 0 0 4px #4f8ef7`): Accessible focus states with high contrast.
 
 ### Named Rules
 **The Flat-By-Default Rule.** Surfaces are flat at rest. Elevation is a response, not a default.
@@ -151,7 +151,7 @@ The system is flat by default. Depth is conveyed through tonal layering (`surfac
 
 ### Buttons
 - **Shape:** 8px radius.
-- **Primary:** Warm amber background (`#d4a373`), ink text, 12px 24px padding. Hover lightens to `#e0b17f`.
+- **Primary:** Cobalt background (`#4f8ef7`), dark navy text, 12px 24px padding. Hover lightens to `#6b9ef8`.
 - **Ghost:** Transparent background, warm-white text. Hover uses `surface-elevated` tonal fill.
 - **Focus:** 2px inner ink + 2px outer amber ring.
 
@@ -180,7 +180,7 @@ The system is flat by default. Depth is conveyed through tonal layering (`surfac
 ## 6. Do's and Don'ts
 
 ### Do:
-- Use warm amber as the single call-to-action color.
+- Use cobalt as the single call-to-action color.
 - Keep body text at 1rem or larger.
 - Use generous whitespace between sections (96px default).
 - Respect `prefers-reduced-motion` for all entrance and state animations.
@@ -189,7 +189,7 @@ The system is flat by default. Depth is conveyed through tonal layering (`surfac
 ### Don't:
 - Use a particle-network or connect-dot background.
 - Use pure black (`#000000`) anywhere, including shadows and QR code foregrounds.
-- Use blue as a primary or accent color.
+- Use a second saturated hue alongside cobalt — it dilutes the discipline.
 - Use glassmorphism, blur cards, or heavy drop shadows as decoration.
 - Use side-stripe colored borders as a card detail.
 - Use monospace fonts for headlines or marketing copy.
