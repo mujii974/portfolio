@@ -25,7 +25,9 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="order-2 lg:order-1 flex justify-center lg:justify-end"
         >
-          <AsciiArt />
+          <div className="order-2 lg:order-1 flex justify-center lg:justify-end">
+            <AsciiArt />
+          </div>
         </motion.div>
 
         <motion.div

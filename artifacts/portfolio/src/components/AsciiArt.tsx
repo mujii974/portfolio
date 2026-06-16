@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import profileCutout from "@assets/profile_cutout.png";
+import DotField from "./DotField";
 // Dark (space) -> light (dense). Brighter source pixels get heavier glyphs.
 const RAMP = " .'`^\":;Il!i~+_-?][}{1)|tfjrxnuvczXYUJCLQ0OZmwqpdbkhao#MW&8%B@";
 // Characters cycled through during the scramble-in reveal.
 const SCRAMBLE = "01<>[]{}\\/\\|=+*#%&$XYZJCnuvxw?!:;";
 
-// Dark-mode: cobalt. Light-mode: deeper cobalt for contrast on white.
 const ACCENT_RGB_DARK = "79, 142, 247";
-const ACCENT_RGB_LIGHT = "59, 125, 239";
+const ACCENT_RGB_LIGHT = "37, 64, 180";
 
 // Crop window over the source image (head + upper torso), as fractions.
 const CROP = { x: 0.28, y: 0.2, w: 0.52, h: 0.36 };
@@ -26,6 +26,18 @@ export default function AsciiArt() {
   const animatedRef = useRef(false);
   const rafRef = useRef<number>(0);
   const [ready, setReady] = useState(false);
+  const [isDark, setIsDark] = useState(() =>
+    typeof document !== "undefined" && document.documentElement.classList.contains("dark")
+  );
+
+  // Track theme so the dot field tint follows light/dark mode.
+  useEffect(() => {
+    const obs = new MutationObserver(() =>
+      setIsDark(document.documentElement.classList.contains("dark"))
+    );
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
 
   // Build the glyph grid from the image once.
   useEffect(() => {
@@ -217,12 +229,30 @@ export default function AsciiArt() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       data-testid="ascii-canvas"
     >
-      <canvas
-        ref={canvasRef}
-        role="img"
-        className="w-full h-auto select-none"
-        aria-label="ASCII portrait of Mujtaba Shahid"
-      />
+      <div className="relative">
+        <div className="absolute inset-0 z-0">
+          <DotField
+            dotRadius={1.5}
+            dotSpacing={14}
+            cursorRadius={220}
+            cursorForce={0.1}
+            bulgeOnly={true}
+            bulgeStrength={40}
+            glowRadius={140}
+            sparkle={false}
+            waveAmplitude={0}
+            gradientFrom={`rgba(${isDark ? ACCENT_RGB_DARK : ACCENT_RGB_LIGHT}, 0.3)`}
+            gradientTo={`rgba(${isDark ? ACCENT_RGB_DARK : ACCENT_RGB_LIGHT}, 0.08)`}
+            glowColor={isDark ? "#0b1220" : "#eef2f8"}
+          />
+        </div>
+        <canvas
+          ref={canvasRef}
+          role="img"
+          className="relative z-10 w-full h-auto select-none"
+          aria-label="ASCII portrait of Mujtaba Shahid"
+        />
+      </div>
     </motion.div>
   );
 }
