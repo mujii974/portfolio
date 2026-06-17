@@ -24,9 +24,8 @@ jobs:
           node-version: 20
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
-      - run: pnpm install --no-frozen-lockfile
-      - run: ls node_modules/gsap && echo "gsap found" || echo "gsap missing"
+          version: 11
+      - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @workspace/portfolio run build
         env:
           BASE_PATH: /
