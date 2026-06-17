@@ -26,8 +26,8 @@ jobs:
         with:
           version: 9
       - run: pnpm install --no-frozen-lockfile
-      - run: pnpm run build
-        working-directory: artifacts/portfolio
+      - run: ls node_modules/gsap && echo "gsap found" || echo "gsap missing"
+      - run: pnpm --filter @workspace/portfolio run build
         env:
           BASE_PATH: /
           PORT: 3000
