@@ -19,21 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @workspace/portfolio run build
-        env:
-          BASE_PATH: /
-          PORT: 3000
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: artifacts/portfolio/dist/public
+          path: site
 
   deploy:
     needs: build
