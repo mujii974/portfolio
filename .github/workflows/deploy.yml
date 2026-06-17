@@ -26,7 +26,6 @@ jobs:
         with:
           version: 9
       - run: pnpm install --no-frozen-lockfile
-        working-directory: artifacts/portfolio
       - run: pnpm run build
         working-directory: artifacts/portfolio
         env:
