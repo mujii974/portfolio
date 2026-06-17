@@ -73,23 +73,28 @@ function MobileNav({
         style={{ background: "hsl(var(--background))" }}
       >
         {/* Header row inside overlay */}
-        <div className="flex items-center justify-between px-6 py-5">
-          <span className="text-sm font-bold tracking-widest text-foreground/40 uppercase select-none">
-            menu
+        <div className="flex items-center justify-between px-6 py-5 flex-shrink-0 relative z-10">
+          <span className="text-sm font-bold tracking-tight text-foreground select-none">
+            M.Shahid
           </span>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setOpen(false)}
-            aria-label="Close menu"
-            className="rounded-full h-10 w-10 border border-border text-muted-foreground hover:text-foreground"
-          >
-            <X className="h-5 w-5" />
-          </Button>
+          <div className="flex items-center gap-2.5">
+            <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-foreground">
+              nav
+            </span>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setOpen(false)}
+              aria-label="Close menu"
+              className="rounded-full h-10 w-10 border border-border text-muted-foreground hover:text-foreground hover:rotate-90 transition-transform"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
 
         {/* Nav links */}
-        <nav className="flex-1 flex flex-col justify-center px-8 gap-1 pb-16">
+        <nav className="flex-1 flex flex-col justify-start overflow-y-auto px-6 pt-3 pb-4">
           {NAV_LINKS.map((link, i) => {
             const isActive = activeSection === link.href.slice(1);
             return (
@@ -101,14 +106,22 @@ function MobileNav({
                 }`}
                 style={{
                   transitionDelay: open ? `${i * 40}ms` : "0ms",
-                  transform: open ? "translateY(0)" : "translateY(12px)",
+                  transform: open ? "translateX(0)" : "translateX(-16px)",
                   opacity: open ? 1 : 0,
-                  transition: `opacity 0.3s ease ${i * 40}ms, transform 0.3s ease ${i * 40}ms, color 0.15s`,
+                  transition: `opacity 0.32s ease ${i * 40}ms, transform 0.32s ease ${i * 40}ms, color 0.15s`,
                 }}
               >
-                <span className="text-4xl font-bold tracking-tight">{link.label}</span>
-                <span className="text-xs font-mono text-foreground/30 group-hover:text-foreground/50 transition-colors">
-                  0{i + 1}
+                <div className="flex items-baseline gap-3">
+                  <span className="text-[9px] font-mono tracking-widest text-muted-foreground group-hover:text-accent transition-colors">
+                    0{i + 1}
+                  </span>
+                  <span className="text-4xl font-bold tracking-tight leading-none">{link.label}</span>
+                </div>
+                <span
+                  className="text-accent opacity-0 -translate-x-1.5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150"
+                  aria-hidden
+                >
+                  →
                 </span>
               </button>
             );
