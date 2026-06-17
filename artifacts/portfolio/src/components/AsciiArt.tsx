@@ -18,7 +18,23 @@ const CELL_W = 5;
 const CELL_H = 9;
 const REVEAL_MS = 1700;
 
-type Cell = { px: number; py: number; char: string; op: number; settle: number };
+type Cell = {
+  px: number;
+  py: number;
+  char: string;
+  op: number;
+  settle: number;
+  // Cursor-driven displacement, eased toward a target each frame.
+  ox: number;
+  oy: number;
+};
+
+// Cursor interaction tuning for the dot-bulge effect on the glyph grid.
+const CURSOR_RADIUS = 110;
+const CURSOR_RADIUS_SQ = CURSOR_RADIUS * CURSOR_RADIUS;
+const BULGE_STRENGTH = 16;
+// Higher = snappier follow (less lag), for a fast water-like response.
+const BULGE_EASE = 0.65;
 
 export default function AsciiArt() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -103,6 +119,8 @@ export default function AsciiArt() {
             op: 0.5 + t * 0.5,
             // Reveal top-to-bottom with a little randomness.
             settle: Math.min(0.95, (y / rows) * 0.7 + Math.random() * 0.3),
+            ox: 0,
+            oy: 0,
           });
         }
       }
@@ -116,6 +134,7 @@ export default function AsciiArt() {
       canvas.height = cssH * dpr;
       canvas.style.width = `${cssW}px`;
       canvas.style.height = `${cssH}px`;
+      canvas.style.aspectRatio = `${cssW} / ${cssH}`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       setReady(true);
@@ -139,86 +158,108 @@ export default function AsciiArt() {
     const cssW = parseFloat(canvas.style.width);
     const cssH = parseFloat(canvas.style.height);
 
+    // Track cursor position in canvas-local CSS px so glyphs can bulge
+    // away from it, mirroring the dot-field interaction on DotField.
+    const mouse = { x: -9999, y: -9999 };
+    const onMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+    const onLeave = () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    };
+    const onTouch = (e: TouchEvent) => {
+      if (e.touches.length === 0) { onLeave(); return; }
+      const rect = canvas.getBoundingClientRect();
+      const t = e.touches[0];
+      mouse.x = t.clientX - rect.left;
+      mouse.y = t.clientY - rect.top;
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mouseleave", onLeave, { passive: true });
+    canvas.addEventListener("touchmove", onTouch, { passive: true });
+    canvas.addEventListener("touchend", onLeave, { passive: true });
+
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
     const paint = (progress: number) => {
       const isDark = document.documentElement.classList.contains("dark");
       const rgb = isDark ? ACCENT_RGB_DARK : ACCENT_RGB_LIGHT;
       ctx.clearRect(0, 0, cssW, cssH);
       ctx.font = `${CELL_H}px "JetBrains Mono", monospace`;
       ctx.textBaseline = "top";
-      ctx.shadowColor = `rgba(${rgb}, 0.9)`;
-      ctx.shadowBlur = 6;
       for (let i = 0; i < cells.length; i++) {
         const c = cells[i];
+
+        if (!prefersReduced) {
+          const dx = mouse.x - c.px;
+          const dy = mouse.y - c.py;
+          const distSq = dx * dx + dy * dy;
+          let tx = 0;
+          let ty = 0;
+          if (distSq < CURSOR_RADIUS_SQ) {
+            const dist = Math.sqrt(distSq);
+            // Smoothstep falloff: continuous to zero at the radius edge
+            // with no hard cutoff, so displaced glyphs don't pile into a
+            // visible ring right at the boundary.
+            const t = 1 - dist / CURSOR_RADIUS;
+            const tt = t * t * (3 - 2 * t);
+            const push = tt * BULGE_STRENGTH;
+            const angle = Math.atan2(dy, dx);
+            tx = -Math.cos(angle) * push;
+            ty = -Math.sin(angle) * push;
+          }
+          c.ox += (tx - c.ox) * BULGE_EASE;
+          c.oy += (ty - c.oy) * BULGE_EASE;
+        }
+
+        const drawX = c.px + c.ox;
+        const drawY = c.py + c.oy;
+
         if (progress >= c.settle) {
           ctx.fillStyle = `rgba(${rgb}, ${c.op})`;
-          ctx.fillText(c.char, c.px, c.py);
+          ctx.fillText(c.char, drawX, drawY);
         } else {
           const ch = SCRAMBLE[(Math.random() * SCRAMBLE.length) | 0];
           ctx.fillStyle = `rgba(${rgb}, ${c.op * 0.35})`;
-          ctx.fillText(ch, c.px, c.py);
+          ctx.fillText(ch, drawX, drawY);
         }
       }
-      ctx.shadowBlur = 0;
     };
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (animatedRef.current || prefersReduced) {
+    if (prefersReduced) {
       paint(1);
       animatedRef.current = true;
-      return;
+      return () => {
+        window.removeEventListener("mousemove", onMove);
+        window.removeEventListener("mouseleave", onLeave);
+      };
     }
 
-    // Mark as animated at start so a theme switch mid-reveal repaints
-    // instantly instead of replaying the scramble.
-    animatedRef.current = true;
+    // Run a persistent loop: drives the scramble-in reveal first, then
+    // keeps repainting indefinitely so the cursor bulge stays live and
+    // theme switches are picked up automatically.
     let start = 0;
-    const tick = (ts: number) => {
+    const loop = (ts: number) => {
       if (!start) start = ts;
-      const p = (ts - start) / REVEAL_MS;
-      if (p >= 1) {
-        paint(1);
-        animatedRef.current = true;
-        return;
-      }
-      paint(p);
-      rafRef.current = requestAnimationFrame(tick);
+      const p = animatedRef.current ? 1 : (ts - start) / REVEAL_MS;
+      if (p >= 1) animatedRef.current = true;
+      paint(Math.min(p, 1));
+      rafRef.current = requestAnimationFrame(loop);
     };
-    rafRef.current = requestAnimationFrame(tick);
+    rafRef.current = requestAnimationFrame(loop);
 
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [ready]);
-
-  // Re-render glyphs when theme switches so the color adapts immediately.
-  useEffect(() => {
-    if (!ready) return;
-    const obs = new MutationObserver(() => {
-      if (ready) {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-        const cells = cellsRef.current;
-        const cssW = parseFloat(canvas.style.width);
-        const cssH = parseFloat(canvas.style.height);
-        const isDark = document.documentElement.classList.contains("dark");
-        const rgb = isDark ? ACCENT_RGB_DARK : ACCENT_RGB_LIGHT;
-        ctx.clearRect(0, 0, cssW, cssH);
-        ctx.font = `${CELL_H}px "JetBrains Mono", monospace`;
-        ctx.textBaseline = "top";
-        ctx.shadowColor = `rgba(${rgb}, 0.9)`;
-        ctx.shadowBlur = 6;
-        for (const c of cells) {
-          ctx.fillStyle = `rgba(${rgb}, ${c.op})`;
-          ctx.fillText(c.char, c.px, c.py);
-        }
-        ctx.shadowBlur = 0;
-      }
-    });
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => obs.disconnect();
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+      canvas.removeEventListener("touchmove", onTouch);
+      canvas.removeEventListener("touchend", onLeave);
+    };
   }, [ready]);
 
   return (
@@ -238,18 +279,19 @@ export default function AsciiArt() {
             cursorForce={0.1}
             bulgeOnly={true}
             bulgeStrength={40}
-            glowRadius={140}
+            glowRadius={0}
             sparkle={false}
             waveAmplitude={0}
             gradientFrom={`rgba(${isDark ? ACCENT_RGB_DARK : ACCENT_RGB_LIGHT}, 0.3)`}
             gradientTo={`rgba(${isDark ? ACCENT_RGB_DARK : ACCENT_RGB_LIGHT}, 0.08)`}
-            glowColor={isDark ? "#0b1220" : "#eef2f8"}
+            glowColor="transparent"
           />
         </div>
         <canvas
           ref={canvasRef}
           role="img"
-          className="relative z-10 w-full h-auto select-none"
+          className="relative z-10 w-full select-none"
+          style={{ height: "auto" }}
           aria-label="ASCII portrait of Mujtaba Shahid"
         />
       </div>
