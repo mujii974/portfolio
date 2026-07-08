@@ -1,0 +1,35 @@
+# Agent Readiness Notes
+
+## DNS-AID
+
+The DNS-AID check requires DNS records under the `mujii.dev` zone. This cannot be fully implemented from the application repository.
+
+Required discovery names:
+
+- `_index._agents.mujii.dev`
+- `_a2a._agents.mujii.dev`
+- `_mcp._agents.mujii.dev`
+
+The validator looks for SVCB/HTTPS records and possibly TXT records at these names.
+
+Before adding records:
+
+- Confirm the DNS provider supports SVCB or HTTPS records.
+- Confirm whether DNSSEC is enabled.
+- Confirm the expected endpoint syntax from the latest DNS-AID draft.
+
+Suggested intent:
+
+- `_index._agents.mujii.dev` should point to the public agent discovery index.
+- `_mcp._agents.mujii.dev` should point to MCP metadata only if the `/api/mcp` endpoint is deployed with the Cloudflare Pages Function in this repo.
+- `_a2a._agents.mujii.dev` should only be added if A2A agent metadata is actually provided.
+
+Do not add DNS records claiming unsupported A2A, MCP, OAuth, or commerce capabilities.
+
+## DNS Provider TODO
+
+- Identify the active DNS provider for `mujii.dev`.
+- Verify SVCB or HTTPS record support.
+- Verify DNSSEC status.
+- Confirm the DNS-AID draft syntax expected by the validator.
+- Add only records that point at deployed, truthful public metadata.

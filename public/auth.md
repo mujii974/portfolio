@@ -1,22 +1,33 @@
-# Auth notes for agents
+# Auth.md
 
-mujii.dev is a static personal portfolio. It does not currently provide
-account registration, a public API, or any protected/authenticated
-resource for third parties or agents.
+## Authentication Status
 
-- No OAuth or OIDC authorization is required to read any page on this site.
-- There is no client-credentials, API-key, or token-based access to protect
-  — no such API exists.
-- The `/admin` path is a private tool for the site owner only (a
-  password-protected inbox for contact-form messages). It is not a public
-  API, is excluded via `robots.txt`, and is not part of the content meant
-  for agents or crawlers.
-- Public, agent-readable resources (no auth needed):
-  - https://mujii.dev/llms.txt
-  - https://mujii.dev/llms-full.txt
-  - https://mujii.dev/sitemap.xml
-  - https://mujii.dev/.well-known/agent-skills/index.json
+This website is a public personal portfolio for Mujtaba Shahid.
 
-If a future version of this site exposes a real API or MCP server, this
-file will be updated with genuine issuer, token endpoint, and scope
-information at that time — not before.
+No account registration, OAuth login, protected API access, paid content, or private agent actions are currently provided by this site.
+
+## Public Agent Access
+
+AI agents may access the following public resources:
+
+- https://mujii.dev/
+- https://mujii.dev/llms.txt
+- https://mujii.dev/llms-full.txt
+- https://mujii.dev/sitemap.xml
+- https://mujii.dev/.well-known/agent-skills/index.json
+- https://mujii.dev/.well-known/api-catalog
+- https://mujii.dev/.well-known/mcp/server-card.json
+
+## Agent Registration
+
+Agent registration is not required because all published portfolio resources are public read-only resources.
+
+## Protected Resources
+
+No OAuth-protected resources are currently exposed.
+
+The `/admin` path is a private owner-only tool and is excluded from crawler access by `robots.txt`. It is not a public API or agent resource.
+
+## Contact
+
+Use the public contact links on https://mujii.dev/.

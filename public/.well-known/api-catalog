@@ -3,17 +3,36 @@
     {
       "anchor": "https://mujii.dev/",
       "describedby": [
-        { "href": "https://mujii.dev/llms.txt", "type": "text/plain" },
-        { "href": "https://mujii.dev/llms-full.txt", "type": "text/plain" }
+        {
+          "href": "https://mujii.dev/llms.txt",
+          "type": "text/plain"
+        },
+        {
+          "href": "https://mujii.dev/llms-full.txt",
+          "type": "text/markdown"
+        }
       ],
       "service-desc": [
         {
           "href": "https://mujii.dev/.well-known/agent-skills/index.json",
           "type": "application/json"
+        },
+        {
+          "href": "https://mujii.dev/.well-known/mcp/server-card.json",
+          "type": "application/json"
         }
       ],
-      "sitemap": [
-        { "href": "https://mujii.dev/sitemap.xml", "type": "application/xml" }
+      "service-doc": [
+        {
+          "href": "https://mujii.dev/auth.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://mujii.dev/",
+          "type": "text/html"
+        }
       ]
     }
   ]

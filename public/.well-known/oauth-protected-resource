@@ -1,0 +1,9 @@
+{
+  "resource": "https://mujii.dev/",
+  "resource_name": "Mujtaba Shahid Portfolio",
+  "resource_documentation": "https://mujii.dev/auth.md",
+  "authorization_servers": [],
+  "scopes_supported": [],
+  "bearer_methods_supported": [],
+  "description": "This is a public read-only portfolio. No OAuth-protected resources are currently exposed."
+}

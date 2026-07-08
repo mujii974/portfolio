@@ -1,0 +1,22 @@
+{
+  "serverInfo": {
+    "name": "mujii-portfolio",
+    "version": "1.0.0"
+  },
+  "name": "mujii-portfolio",
+  "description": "Read-only MCP discovery card for Mujtaba Shahid's public cybersecurity portfolio.",
+  "protocolVersion": "2025-06-18",
+  "transports": [
+    {
+      "type": "streamable_http",
+      "url": "https://mujii.dev/api/mcp"
+    }
+  ],
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": false
+  },
+  "homepage": "https://mujii.dev/",
+  "documentation": "https://mujii.dev/llms-full.txt"
+}

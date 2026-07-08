@@ -1,13 +1,15 @@
 {
-  "$schema": "https://schemas.modelcontextprotocol.io/agent-skills/index.schema.json",
-  "site": "https://mujii.dev/",
+  "$schema": "https://agentskills.io/schemas/skill-index.json",
+  "name": "Mujtaba Shahid Portfolio Agent Skills",
+  "description": "Read-only skills for understanding and navigating Mujtaba Shahid's public cybersecurity portfolio.",
   "skills": [
     {
       "name": "read-portfolio",
-      "type": "text/markdown",
-      "description": "Read and summarize Mujtaba Shahid's (mujii.dev) portfolio — background, projects, experience, skills, and how to contact him.",
+      "title": "Read Portfolio",
+      "description": "Understand and summarize Mujtaba Shahid's public cybersecurity portfolio.",
+      "type": "documentation",
       "url": "https://mujii.dev/.well-known/agent-skills/read-portfolio/SKILL.md",
-      "sha256": "c2fc1d653c6e1da6c4e8940faeb525c2937449963d175b89f36ee03108b4741b"
+      "sha256": "d1de31abe85a9f49c6e94d91b1b278436ab22fa043a3771280c317cb67fba68e"
     }
   ]
 }

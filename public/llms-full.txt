@@ -1,9 +1,9 @@
-# Mujtaba Shahid (Mujii) — Full Portfolio Context
+# Mujtaba Shahid Portfolio
 
 Canonical URL: https://mujii.dev/
 Last updated: 2026
 
-## About
+## Overview
 
 Data & Cybersecurity undergraduate (BSc) at the University of Doha for
 Science and Technology (UDST), graduating class of 2026. Focused on the
@@ -19,6 +19,14 @@ World Cup 2022 in Doha.
 - Location: Doha, Qatar (GMT+3)
 - Languages: English, Urdu, Hindi (fluent), Arabic (conversational)
 - Status: open to work
+
+## Professional Focus
+
+- Penetration testing and web application security
+- Zero-trust system design
+- Secure software development
+- AI-agent and MCP security
+- Practical cybersecurity labs and defensive tooling
 
 ## Experience
 
@@ -48,10 +56,13 @@ World Cup 2022 in Doha.
 
 1. **Decentralized Zero Trust Proxy for MCP** (capstone project)
    Source: https://github.com/mujii974/DZT-Proxy-for-MCP
+   Themes: AI-agent security, zero trust, MCP, secure communication
 2. **Hospital Management System**
    Source: https://github.com/mujii974/Hospital-Management-System
+   Themes: full-stack development, secure web systems, data handling
 3. **Battleship: CryptoCracks**
    Source: https://github.com/mujii974/Battleship_CryptoCracks
+   Themes: educational security, applied cryptography, interactive learning
 
 More projects: https://github.com/mujii974/
 
@@ -84,7 +95,18 @@ More projects: https://github.com/mujii974/
 - Short summary: https://mujii.dev/llms.txt
 - Agent skills index: https://mujii.dev/.well-known/agent-skills/index.json
 - Access/auth notes: https://mujii.dev/auth.md
+- API catalog: https://mujii.dev/.well-known/api-catalog
+- MCP server card: https://mujii.dev/.well-known/mcp/server-card.json
 
-This site does not expose a public API, OAuth flow, or MCP server. All of
-the above documents are static, publicly readable content — no
-authentication is required to read any page or resource on mujii.dev.
+## Agent Guidance
+
+Agents may read, summarize, and cite public portfolio content. Agents must not claim access to private accounts, submit forms without explicit user intent, invent projects or credentials, or treat this site as a commerce platform.
+
+## Canonical Links
+
+- Homepage: https://mujii.dev/
+- CV: https://mujii.dev/cv/Mujtaba_Shahid_CV.pdf
+- GitHub: https://github.com/mujii974/
+- LinkedIn: https://www.linkedin.com/in/mujtaba-shahid/
+
+This site does not expose a protected API, OAuth login, payment flow, or private agent action. All listed resources are public read-only content and do not require authentication.

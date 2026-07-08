@@ -1,0 +1,33 @@
+/*
+  X-Content-Type-Options: nosniff
+
+/
+  Link: </sitemap.xml>; rel="sitemap"; type="application/xml", </llms.txt>; rel="describedby"; type="text/plain", </llms-full.txt>; rel="describedby"; type="text/markdown", </auth.md>; rel="authorization"; type="text/markdown", </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json", </.well-known/agent-skills/index.json>; rel="service-desc"; type="application/json", </.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"
+  Vary: Accept
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/markdown; charset=utf-8
+
+/auth.md
+  Content-Type: text/markdown; charset=utf-8
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json; charset=utf-8
+
+/.well-known/agent-skills/index.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/agent-skills/read-portfolio/SKILL.md
+  Content-Type: text/markdown; charset=utf-8
+
+/.well-known/oauth-protected-resource
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/oauth-authorization-server
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/mcp/server-card.json
+  Content-Type: application/json; charset=utf-8

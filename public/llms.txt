@@ -1,36 +1,35 @@
-# mujii.dev
+# Mujtaba Shahid Portfolio
 
-> Portfolio of Mujtaba Shahid (Mujii) — BSc Data & Cybersecurity student at UDST
-> (University of Doha for Science and Technology), focused on penetration
-> testing, zero-trust architecture, and secure software development. Based in
-> Doha, Qatar. Currently completing the CEH v13 certification.
+Official site: https://mujii.dev/
 
-Canonical URL: https://mujii.dev/
+Mujtaba Shahid is a cybersecurity and secure software development professional based in Doha, Qatar. His work focuses on penetration testing, zero-trust architecture, secure web systems, and AI-agent security.
 
-## Sections
+Key sections:
 
-- Profile (#about) — background, focus areas, current status
-- Selected work (#projects) — security and software projects with source links
-- Trajectory (#experience) — work history and education timeline
-- Arsenal (#skills) — tools, languages, and security frameworks
-- Dossier (#cv) — downloadable CV and certifications
-- Contact (#contact) — email, phone, GitHub, LinkedIn
+- Profile
+- Work
+- Trajectory
+- Arsenal
+- Dossier
+- Contact
 
-## Key projects
+Key focus areas:
 
-- Decentralized Zero Trust Proxy for MCP — github.com/mujii974/DZT-Proxy-for-MCP
-- Hospital Management System — github.com/mujii974/Hospital-Management-System
-- Battleship: CryptoCracks — github.com/mujii974/Battleship_CryptoCracks
+- Cybersecurity
+- Secure software development
+- Web application security
+- AI-agent security
+- Zero-trust systems
+- Penetration testing
+- Frontend and full-stack development
 
-## Contact
+Primary project themes:
 
-- Email: mujtaba.sha19@gmail.com
-- GitHub: https://github.com/mujii974/
-- LinkedIn: https://www.linkedin.com/in/mujtaba-shahid/
+- Decentralized zero-trust proxy for MCP and AI agents
+- Secure web systems
+- University and startup software projects
+- Security-focused application development
 
-## Further reading
+Contact:
 
-- Full markdown context: /llms-full.txt
-- Sitemap: /sitemap.xml
-- Agent skills index: /.well-known/agent-skills/index.json
-- Auth/access notes: /auth.md
+Use the contact links on https://mujii.dev/

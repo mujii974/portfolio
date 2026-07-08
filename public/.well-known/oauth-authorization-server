@@ -1,0 +1,8 @@
+{
+  "issuer": "https://mujii.dev/",
+  "service_documentation": "https://mujii.dev/auth.md",
+  "grant_types_supported": [],
+  "response_types_supported": [],
+  "scopes_supported": [],
+  "description": "This site does not currently operate an OAuth authorization server. Public portfolio resources are available without authentication."
+}
