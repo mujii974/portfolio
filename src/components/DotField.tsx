@@ -201,11 +201,29 @@ const DotField = memo(({
       rafRef.current = requestAnimationFrame(tick);
     }
 
-    doResize();
-    window.addEventListener("resize", () => {
+    const onWindowResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(doResize, 100);
+    };
+
+    doResize();
+    window.addEventListener("resize", onWindowResize);
+
+    // The parent often has zero size at mount (e.g. an async-loaded image/
+    // canvas sizes it later). Re-measure whenever it actually changes so the
+    // dot grid fills the whole container instead of a tiny top-left patch.
+    const ro = new ResizeObserver(() => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(doResize, 60);
     });
+    if (canvas.parentElement) ro.observe(canvas.parentElement);
+
+    // Safety nets: an async-sized parent (image/canvas that loads late) can
+    // settle in stages the observer collapses into one intermediate reading.
+    // Re-measure a couple of times so the grid lands on the final size.
+    const settle1 = setTimeout(doResize, 250);
+    const settle2 = setTimeout(doResize, 700);
+
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     rafRef.current = requestAnimationFrame(tick);
 
@@ -213,10 +231,10 @@ const DotField = memo(({
       cancelAnimationFrame(rafRef.current);
       clearInterval(speedInterval);
       clearTimeout(resizeTimer);
-      window.removeEventListener("resize", () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(doResize, 100);
-      });
+      clearTimeout(settle1);
+      clearTimeout(settle2);
+      ro.disconnect();
+      window.removeEventListener("resize", onWindowResize);
       window.removeEventListener("mousemove", onMouseMove);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

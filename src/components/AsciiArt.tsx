@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import profileCutout from "@assets/profile_cutout.png";
+import profileCutout from "@assets/profile_cutout.webp";
 import DotField from "./DotField";
 // Dark (space) -> light (dense). Brighter source pixels get heavier glyphs.
 const RAMP = " .'`^\":;Il!i~+_-?][}{1)|tfjrxnuvczXYUJCLQ0OZmwqpdbkhao#MW&8%B@";
@@ -8,7 +8,7 @@ const RAMP = " .'`^\":;Il!i~+_-?][}{1)|tfjrxnuvczXYUJCLQ0OZmwqpdbkhao#MW&8%B@";
 const SCRAMBLE = "01<>[]{}\\/\\|=+*#%&$XYZJCnuvxw?!:;";
 
 const ACCENT_RGB_DARK = "79, 142, 247";
-const ACCENT_RGB_LIGHT = "37, 64, 180";
+const ACCENT_RGB_LIGHT = "43, 78, 196";
 
 // Crop window over the source image (head + upper torso), as fractions.
 const CROP = { x: 0.28, y: 0.2, w: 0.52, h: 0.36 };
@@ -126,14 +126,19 @@ export default function AsciiArt() {
       }
       cellsRef.current = cells;
 
-      // Size the canvas (DPR-aware for crisp glyphs).
+      // Size the canvas (DPR-aware for crisp glyphs). CSS width is fluid so
+      // the portrait scales down on small screens; drawing stays in the
+      // fixed logical space and the browser scales the bitmap.
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const cssW = COLS * CELL_W;
       const cssH = rows * CELL_H;
       canvas.width = cssW * dpr;
       canvas.height = cssH * dpr;
-      canvas.style.width = `${cssW}px`;
-      canvas.style.height = `${cssH}px`;
+      canvas.style.width = "100%";
+      canvas.style.maxWidth = `${cssW}px`;
+      canvas.style.height = "auto";
+      canvas.dataset.cssw = String(cssW);
+      canvas.dataset.cssh = String(cssH);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       setReady(true);
@@ -154,16 +159,18 @@ export default function AsciiArt() {
     if (!ctx) return;
 
     const cells = cellsRef.current;
-    const cssW = parseFloat(canvas.style.width);
-    const cssH = parseFloat(canvas.style.height);
+    const cssW = Number(canvas.dataset.cssw);
+    const cssH = Number(canvas.dataset.cssh);
 
-    // Track cursor position in canvas-local CSS px so glyphs can bulge
-    // away from it, mirroring the dot-field interaction on DotField.
+    // Track cursor position mapped into the fixed logical drawing space so
+    // the bulge stays accurate when CSS scales the canvas down.
     const mouse = { x: -9999, y: -9999 };
     const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
+      if (rect.width === 0) return;
+      const scale = cssW / rect.width;
+      mouse.x = (e.clientX - rect.left) * scale;
+      mouse.y = (e.clientY - rect.top) * scale;
     };
     const onLeave = () => {
       mouse.x = -9999;
