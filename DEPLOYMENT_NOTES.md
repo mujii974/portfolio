@@ -4,7 +4,7 @@ This repo builds a Vite site prepared for **Cloudflare Pages**. The old
 GitHub Pages workflow was moved to
 `.github/workflows-disabled/deploy.github-pages.yml`, and the old
 GitHub Pages custom-domain file was renamed to
-`public/CNAME.github-pages-disabled`.
+`.github/workflows-disabled/CNAME.github-pages-disabled`.
 
 That migration matters because **GitHub Pages cannot serve custom HTTP
 response headers, run server-side logic, or do content negotiation**. It
