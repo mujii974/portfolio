@@ -119,7 +119,7 @@ export default function SiteNav() {
             data-testid="link-logo"
           >
             <span>mujii</span>
-            <span className="text-accent transition-transform duration-300 group-hover:rotate-12">/</span>
+            <span className="text-accent transition-transform duration-300 group-hover:rotate-12">.</span>
             <span className="text-muted-foreground">dev</span>
           </button>
 
@@ -190,7 +190,7 @@ export default function SiteNav() {
           >
             <div className="flex h-16 items-center justify-between px-5 sm:px-8">
               <span className="font-display text-lg font-extrabold tracking-tight">
-                mujii<span className="text-accent">/</span>
+                mujii<span className="text-accent">.</span>
                 <span className="text-muted-foreground">dev</span>
               </span>
               <button
