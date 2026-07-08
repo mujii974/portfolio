@@ -124,7 +124,7 @@ export default function Hero() {
                 className="text-muted-foreground transition-all hover:-translate-y-0.5 hover:text-accent"
                 data-testid="link-github-hero"
               >
-                <SiGithub className="h-5 w-5" />
+                <SiGithub className="h-5 w-5" aria-hidden="true" focusable="false" />
               </a>
               <a
                 href="https://www.linkedin.com/in/mujtaba-shahid/"
@@ -134,7 +134,7 @@ export default function Hero() {
                 className="text-muted-foreground transition-all hover:-translate-y-0.5 hover:text-accent"
                 data-testid="link-linkedin-hero"
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-5 w-5" aria-hidden="true" focusable="false" />
               </a>
             </div>
           </motion.div>

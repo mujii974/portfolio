@@ -1,0 +1,20 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://mujii.dev/",
+      "describedby": [
+        { "href": "https://mujii.dev/llms.txt", "type": "text/plain" },
+        { "href": "https://mujii.dev/llms-full.txt", "type": "text/plain" }
+      ],
+      "service-desc": [
+        {
+          "href": "https://mujii.dev/.well-known/agent-skills/index.json",
+          "type": "application/json"
+        }
+      ],
+      "sitemap": [
+        { "href": "https://mujii.dev/sitemap.xml", "type": "application/xml" }
+      ]
+    }
+  ]
+}

@@ -18,6 +18,9 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
+    // Deployed intentionally so the sourceMappingURL Vite emits always
+    // resolves — avoids the "missing source map" warning in prod.
+    sourcemap: true,
   },
   server: {
     port,

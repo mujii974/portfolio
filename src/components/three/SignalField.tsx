@@ -130,10 +130,23 @@ function SignalField() {
       target.y = -(e.clientY / window.innerHeight - 0.5) * 1.4;
     };
 
+    // Cache the scrollable height so the frame loop never triggers a layout
+    // read (getBoundingClientRect/scrollHeight) — recomputed only on resize
+    // or when content height actually changes.
+    let docTotal = 0;
+    const measureDocTotal = () => {
+      const doc = document.documentElement;
+      docTotal = doc.scrollHeight - doc.clientHeight;
+    };
+    measureDocTotal();
+    const resizeObserver = new ResizeObserver(measureDocTotal);
+    resizeObserver.observe(document.documentElement);
+
     const onResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      measureDocTotal();
       if (reduced) renderer.render(scene, camera);
     };
     window.addEventListener("resize", onResize);
@@ -142,6 +155,7 @@ function SignalField() {
       renderer.render(scene, camera);
       return () => {
         window.removeEventListener("resize", onResize);
+        resizeObserver.disconnect();
         themeObserver.disconnect();
         layers.forEach((l) => {
           l.geometry.dispose();
@@ -163,9 +177,7 @@ function SignalField() {
       const t = (now - start) / 1000;
 
       // Scroll dolly: drift deeper into the field as the page scrolls.
-      const doc = document.documentElement;
-      const total = doc.scrollHeight - doc.clientHeight;
-      const p = total > 0 ? window.scrollY / total : 0;
+      const p = docTotal > 0 ? window.scrollY / docTotal : 0;
 
       camera.position.x += (target.x - camera.position.x) * 0.04;
       camera.position.y += (target.y + p * -2.5 - camera.position.y) * 0.04;
@@ -200,6 +212,7 @@ function SignalField() {
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("resize", onResize);
+      resizeObserver.disconnect();
       themeObserver.disconnect();
       layers.forEach((l) => {
         l.geometry.dispose();

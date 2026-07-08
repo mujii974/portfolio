@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.modelcontextprotocol.io/agent-skills/index.schema.json",
+  "site": "https://mujii.dev/",
+  "skills": [
+    {
+      "name": "read-portfolio",
+      "type": "text/markdown",
+      "description": "Read and summarize Mujtaba Shahid's (mujii.dev) portfolio — background, projects, experience, skills, and how to contact him.",
+      "url": "https://mujii.dev/.well-known/agent-skills/read-portfolio/SKILL.md",
+      "sha256": "c2fc1d653c6e1da6c4e8940faeb525c2937449963d175b89f36ee03108b4741b"
+    }
+  ]
+}

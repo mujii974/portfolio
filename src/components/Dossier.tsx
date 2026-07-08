@@ -67,12 +67,13 @@ export default function Dossier() {
                   >
                     <span className="flex items-center gap-3.5">
                       {cert.done ? (
-                        <Check className="h-4 w-4 shrink-0 text-accent" aria-label="Completed" />
+                        <Check className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" focusable="false" />
                       ) : (
-                        <span className="flex h-4 w-4 shrink-0 items-center justify-center" aria-label="In progress">
+                        <span className="flex h-4 w-4 shrink-0 items-center justify-center" aria-hidden="true">
                           <span className="status-dot" />
                         </span>
                       )}
+                      <span className="sr-only">{cert.done ? "Completed: " : "In progress: "}</span>
                       <span className="text-sm font-medium text-foreground sm:text-base">{cert.name}</span>
                     </span>
                     <span className="shrink-0 text-right font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
@@ -151,7 +152,14 @@ export default function Dossier() {
 
               <div className="flex items-center gap-5 border-t border-border pt-7">
                 <div className="qr-container relative inline-block shrink-0 overflow-hidden rounded-lg border border-border bg-background p-2.5">
-                  <QRCodeSVG value={qrUrl} size={76} fgColor="currentColor" bgColor="transparent" className="text-foreground" />
+                  <QRCodeSVG
+                    value={qrUrl}
+                    size={76}
+                    fgColor="currentColor"
+                    bgColor="transparent"
+                    className="text-foreground"
+                    title={`QR code linking to ${qrUrl}`}
+                  />
                   <div className="qr-scanline" />
                 </div>
                 <p className="font-mono text-[11px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground">

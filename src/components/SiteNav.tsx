@@ -46,14 +46,31 @@ export default function SiteNav() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    // Cache document height (a layout read) on resize only; the scroll
+    // handler itself just reads scrollY, so it never forces a reflow.
+    let total = 0;
+    const measure = () => {
+      total = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    };
+    measure();
+
+    let ticking = false;
     const onScroll = () => {
-      setScrolled(window.scrollY > 32);
-      const total = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      setProgress(total > 0 ? window.scrollY / total : 0);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 32);
+        setProgress(total > 0 ? window.scrollY / total : 0);
+        ticking = false;
+      });
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
   useEffect(() => {

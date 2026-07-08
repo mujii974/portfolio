@@ -121,10 +121,10 @@ function EntryRow({ entry, index }: { entry: Entry; index: number }) {
         {/* Content */}
         <div>
           <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <h4 className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight text-foreground md:text-[1.4rem]">
+            <h3 className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight text-foreground md:text-[1.4rem]">
               <Icon className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
               {entry.title}
-            </h4>
+            </h3>
             <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               {entry.period}
             </span>

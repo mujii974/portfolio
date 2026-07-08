@@ -7,8 +7,11 @@ const LINES = [
   "loading portfolio ........... ok",
 ];
 
-const LINE_MS = 340;
-const HOLD_MS = 420;
+// Kept snappy on purpose: this overlay covers the real content on every
+// fresh session (no sessionStorage flag yet), so its duration is a direct,
+// deterministic tax on LCP for first-time visitors and lab audits.
+const LINE_MS = 180;
+const HOLD_MS = 180;
 
 // One-time-per-session boot readout. Short, then gone.
 export default function Boot() {

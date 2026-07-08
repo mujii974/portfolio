@@ -1,0 +1,90 @@
+# Mujtaba Shahid (Mujii) — Full Portfolio Context
+
+Canonical URL: https://mujii.dev/
+Last updated: 2026
+
+## About
+
+Data & Cybersecurity undergraduate (BSc) at the University of Doha for
+Science and Technology (UDST), graduating class of 2026. Focused on the
+intersection of offensive security and secure system design: pentesting
+isolated networks, and architecting zero-trust layers for AI/agentic
+systems. Currently completing the Certified Ethical Hacker (CEH) v13
+certification (EC-Council).
+
+Outside of security coursework, has shipped production web products at a
+digital agency and worked live, high-pressure events including the FIFA
+World Cup 2022 in Doha.
+
+- Location: Doha, Qatar (GMT+3)
+- Languages: English, Urdu, Hindi (fluent), Arabic (conversational)
+- Status: open to work
+
+## Experience
+
+- **Web Developer & Designer** — NOVERA.DEV, Doha, Qatar
+  Intern, May 2025 – Jan 2026
+- **Event Operations Coordinator** — The Planners W.L.L., FIFA World Cup 2022
+  Freelance, Nov – Dec 2022
+- **Customer Service Agent, Airport Services** — Qatar Airways
+  Oct 2021 – Jan 2022
+
+## Education
+
+- **BSc, Data and Cybersecurity** — University of Doha for Science and
+  Technology (UDST), Jan 2022 – May 2026
+- **High School Diploma** — Ideal Indian School, Doha, Qatar, graduated
+  Mar 2018
+
+## Certifications
+
+- Pre-Security Certificate — TryHackMe (completed)
+- Firewall Essentials — Palo Alto Networks Academy (completed)
+- Cybersecurity Foundation — Palo Alto Networks (completed)
+- Jr. Penetration Tester (PT1) — TryHackMe (in progress)
+- Certified Ethical Hacker v13 — EC-Council (in progress)
+
+## Projects
+
+1. **Decentralized Zero Trust Proxy for MCP** (capstone project)
+   Source: https://github.com/mujii974/DZT-Proxy-for-MCP
+2. **Hospital Management System**
+   Source: https://github.com/mujii974/Hospital-Management-System
+3. **Battleship: CryptoCracks**
+   Source: https://github.com/mujii974/Battleship_CryptoCracks
+
+More projects: https://github.com/mujii974/
+
+## Skills
+
+- **Security, hands-on**: Metasploit, MSFvenom, Burp Suite, Nmap, Wireshark,
+  Tcpdump, Nessus, OpenVAS, Aircrack-ng, Splunk
+- **Security, studied**: BloodHound, Mimikatz, Impacket, Hydra, Hashcat,
+  SQLmap, Snort, Suricata
+- **Languages**: Python, Java, Bash, SQL, PowerShell, JavaScript, HTML/CSS,
+  YAML
+- **Frameworks**: MITRE ATT&CK, NIST CSF, OWASP Top 10, Zero Trust, STRIDE,
+  PASTA, ISO 27001
+- **Dev & lab**: Git, Docker, VS Code, IntelliJ IDEA, VMware, VirtualBox,
+  Kali Linux, Ubuntu
+- **IoT / OT**: Raspberry Pi, Binwalk, MQTT, Arduino, ESP32, Zigbee
+- **Web dev**: Shopify, WordPress, Elementor, WooCommerce, Node.js
+
+## Contact
+
+- Email: mujtaba.sha19@gmail.com
+- Phone: +974 5525 6562
+- GitHub: https://github.com/mujii974/
+- LinkedIn: https://www.linkedin.com/in/mujtaba-shahid/
+- CV (PDF): https://mujii.dev/cv/Mujtaba_Shahid_CV.pdf
+
+## Machine-readable resources
+
+- Sitemap: https://mujii.dev/sitemap.xml
+- Short summary: https://mujii.dev/llms.txt
+- Agent skills index: https://mujii.dev/.well-known/agent-skills/index.json
+- Access/auth notes: https://mujii.dev/auth.md
+
+This site does not expose a public API, OAuth flow, or MCP server. All of
+the above documents are static, publicly readable content — no
+authentication is required to read any page or resource on mujii.dev.

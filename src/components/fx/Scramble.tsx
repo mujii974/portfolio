@@ -55,7 +55,8 @@ function Scramble({ text, className, delay = 0, step = 28, once = true }: Scramb
   }, [inView, text, delay, step, reduced]);
 
   return (
-    <span ref={ref} className={className} aria-label={text}>
+    <span ref={ref} className={className}>
+      <span className="sr-only">{text}</span>
       <span aria-hidden="true">{display || " "}</span>
     </span>
   );

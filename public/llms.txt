@@ -1,0 +1,36 @@
+# mujii.dev
+
+> Portfolio of Mujtaba Shahid (Mujii) — BSc Data & Cybersecurity student at UDST
+> (University of Doha for Science and Technology), focused on penetration
+> testing, zero-trust architecture, and secure software development. Based in
+> Doha, Qatar. Currently completing the CEH v13 certification.
+
+Canonical URL: https://mujii.dev/
+
+## Sections
+
+- Profile (#about) — background, focus areas, current status
+- Selected work (#projects) — security and software projects with source links
+- Trajectory (#experience) — work history and education timeline
+- Arsenal (#skills) — tools, languages, and security frameworks
+- Dossier (#cv) — downloadable CV and certifications
+- Contact (#contact) — email, phone, GitHub, LinkedIn
+
+## Key projects
+
+- Decentralized Zero Trust Proxy for MCP — github.com/mujii974/DZT-Proxy-for-MCP
+- Hospital Management System — github.com/mujii974/Hospital-Management-System
+- Battleship: CryptoCracks — github.com/mujii974/Battleship_CryptoCracks
+
+## Contact
+
+- Email: mujtaba.sha19@gmail.com
+- GitHub: https://github.com/mujii974/
+- LinkedIn: https://www.linkedin.com/in/mujtaba-shahid/
+
+## Further reading
+
+- Full markdown context: /llms-full.txt
+- Sitemap: /sitemap.xml
+- Agent skills index: /.well-known/agent-skills/index.json
+- Auth/access notes: /auth.md

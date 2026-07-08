@@ -64,6 +64,9 @@ export default function AsciiArt() {
 
     let cancelled = false;
     const img = new Image();
+    // This portrait feeds the hero's LCP candidate, so nudge it ahead of
+    // lower-priority fetches instead of waiting in the default queue.
+    img.fetchPriority = "high";
     img.src = profileCutout;
     img.onload = () => {
       if (cancelled) return;
