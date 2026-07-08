@@ -6,7 +6,7 @@ import path from "path";
 const port = Number(process.env.PORT) || 5173;
 
 export default defineConfig({
-  base: process.env.BASE_PATH || "/portfolio/",
+  base: process.env.BASE_PATH || "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

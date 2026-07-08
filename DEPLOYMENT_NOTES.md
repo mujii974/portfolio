@@ -1,19 +1,19 @@
 # Deployment notes — performance & agent-readiness follow-ups
 
-This repo builds a static Vite site, deployed to **GitHub Pages** via
-`.github/workflows/deploy.yml`, served at `mujii.dev` which is **DNS-proxied
-through Cloudflare** (confirmed via `curl -I https://mujii.dev/` — response
-carries both `server: cloudflare` and GitHub Pages/Fastly headers).
+This repo builds a Vite site prepared for **Cloudflare Pages**. The old
+GitHub Pages workflow was moved to
+`.github/workflows-disabled/deploy.github-pages.yml`, and the old
+GitHub Pages custom-domain file was renamed to
+`public/CNAME.github-pages-disabled`.
 
-That hosting shape matters: **GitHub Pages cannot serve custom HTTP
-response headers, run server-side logic, or do content negotiation.** It
+That migration matters because **GitHub Pages cannot serve custom HTTP
+response headers, run server-side logic, or do content negotiation**. It
 only serves static files with whatever headers Pages/Fastly set by default.
-This repo now includes Cloudflare/Netlify-style `_headers` plus Cloudflare
-Pages Functions for Link headers, markdown negotiation, and a read-only MCP
-endpoint. Those runtime pieces are real and locally verified with
-`wrangler pages dev`, but they will not run on the current GitHub Pages
-deployment until the site is migrated to Cloudflare Pages or equivalent
-edge middleware is deployed in front of GitHub Pages.
+This repo now includes Cloudflare Pages `_headers` plus Pages Functions for
+Link headers, markdown negotiation, and a read-only MCP endpoint. Those
+runtime pieces are real and locally verified with `wrangler pages dev`, but
+they will not run on the live domain until `mujii.dev` is migrated to
+Cloudflare Pages or equivalent edge middleware.
 
 ## What's already fixed in code (this change)
 
@@ -35,7 +35,7 @@ edge middleware is deployed in front of GitHub Pages.
 - Added or updated `sitemap.xml`, `robots.txt` sitemap line + `/admin`
   disallow, `llms.txt`, `llms-full.txt`, `auth.md`, and
   `/.well-known/agent-skills/{index.json,read-portfolio/SKILL.md}` — all
-  genuinely truthful, static, and served as-is by GitHub Pages.
+  genuinely truthful, static, and served as-is by Cloudflare Pages.
 - `/.well-known/api-catalog` — a linkset pointing only to real public
   machine-readable docs and service descriptions.
 - `/.well-known/oauth-protected-resource` and
@@ -51,67 +51,43 @@ edge middleware is deployed in front of GitHub Pages.
 - `src/webmcp.ts` — feature-detects `navigator.modelContext.provideContext`
   and registers read-only WebMCP tools only when that browser API exists.
 
-## Still needs deployment-platform change
+## Cloudflare Pages deployment target
+
+Required settings:
+
+- Framework preset: `Vite`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Root directory: `/`
+- Functions directory: `functions`
+
+See `DEPLOY_CLOUDFLARE_PAGES.md` for the DNS migration checklist,
+verification commands, and rollback note.
+
+## Still needs live platform change
 
 ### 1. Cache-Control on hashed assets
 
-GitHub Pages' default `Cache-Control` is short and uniform for every path
-(the PSI "inefficient cache lifetimes" finding). To fix without breaking
-HTML freshness:
-
-- Add a **Cloudflare Cache Rule** (or a Transform Rule that sets response
-  headers) matching `mujii.dev/assets/*` → set
-  `Cache-Control: public, max-age=31536000, immutable` (safe because Vite
-  content-hashes every filename in `/assets/`).
-- Leave `/` and any non-hashed path (e.g. `/sitemap.xml`, `/llms.txt`) on a
-  short cache: `Cache-Control: public, max-age=0, must-revalidate`, or just
-  leave Cloudflare's default for HTML.
-- Free/Pro Cloudflare plans support Cache Rules; response *header
-  rewriting* via Transform Rules needs a Business plan or a Worker (below).
+`public/_headers` sets `Cache-Control: public, max-age=31536000, immutable`
+for `/assets/*` on Cloudflare Pages. GitHub Pages will not apply this file.
 
 ### 2. Homepage `Link` headers
 
-Not possible via GitHub Pages static hosting. The repo now includes
-`public/_headers` and `functions/[[path]].ts`; deploy them on Cloudflare
-Pages, or add an equivalent Cloudflare Worker in front of `mujii.dev/` that
-passes through the origin response and appends headers, e.g.:
-
-```js
-export default {
-  async fetch(request, env, ctx) {
-    const res = await fetch(request);
-    const url = new URL(request.url);
-    if (url.pathname === "/") {
-      const headers = new Headers(res.headers);
-      headers.append("Link", '</sitemap.xml>; rel="sitemap"; type="application/xml"');
-      headers.append("Link", '</llms.txt>; rel="describedby"; type="text/plain"');
-      headers.append("Link", '</llms-full.txt>; rel="describedby"; type="text/plain"');
-      headers.append("Link", '</.well-known/agent-skills/index.json>; rel="service-desc"; type="application/json"');
-      headers.append("Link", '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"');
-      return new Response(res.body, { status: res.status, headers });
-    }
-    return res;
-  },
-};
-```
-
-The checked-in Pages Function is the preferred version if you move this
-repo to Cloudflare Pages. I have no Cloudflare account access to create or
-deploy a Worker Route on the current live domain.
+Implemented in `functions/[[path]].ts` for Cloudflare Pages. The live
+GitHub Pages deployment will not use this function.
 
 ### 3. `Content-Type: application/linkset+json` for `/.well-known/api-catalog`
 
-GitHub Pages will serve this extensionless file with a generic/guessed
-content type, not `application/linkset+json`. The same Worker above can be
-extended with a rule for that path to set the correct `Content-Type`.
+`public/_headers` sets this on Cloudflare Pages. GitHub Pages will not
+apply it.
 
 ### 4. Markdown for Agents (`Accept: text/markdown` content negotiation)
 
 Implemented in `functions/[[path]].ts` for Cloudflare Pages and verified
-locally with `wrangler pages dev`. GitHub Pages cannot vary a response by
-request header, so the live `https://mujii.dev/` deployment will keep
-returning normal HTML for `Accept: text/markdown` until a Cloudflare Pages
-or Worker deployment is active.
+locally with `wrangler pages dev`. The live `https://mujii.dev/` deployment
+will keep returning normal HTML for `Accept: text/markdown` until the
+custom domain is attached to Cloudflare Pages or another request-aware
+runtime.
 
 ### 5. DNS-AID records
 

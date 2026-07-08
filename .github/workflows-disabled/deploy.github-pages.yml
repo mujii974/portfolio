@@ -1,3 +1,5 @@
+# Disabled during the Cloudflare Pages migration. GitHub Pages is static-only
+# and cannot support request-aware Markdown Negotiation for Accept: text/markdown.
 name: Deploy to GitHub Pages
 
 on:

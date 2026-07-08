@@ -4,13 +4,49 @@
 
 Markdown Negotiation requires a request-aware edge/runtime. GitHub Pages cannot vary the homepage body by Accept header.
 
-This repository currently contains a GitHub Pages workflow at `.github/workflows/deploy.yml`. That workflow builds with `npm run build`, uploads `dist`, and serves the custom domain from `public/CNAME`. This is static-only hosting, so `curl -H "Accept: text/markdown" https://mujii.dev/` will keep returning HTML while the live site remains on GitHub Pages.
+This repository previously deployed through a GitHub Pages workflow at `.github/workflows/deploy.yml`. That workflow built with `npm run build`, uploaded `dist`, and served the custom domain from `public/CNAME`. Both have been disabled for the Cloudflare Pages migration. GitHub Pages is static-only, so `curl -H "Accept: text/markdown" https://mujii.dev/` will keep returning HTML until the live domain is moved to Cloudflare Pages or another request-aware runtime.
 
 To pass the audit, deploy this site to Cloudflare Pages with:
 
+- Framework preset: `Vite`
 - Build command: `npm run build`
 - Output directory: `dist`
+- Root directory: `/`
 - Functions directory: `functions`
+
+The old GitHub Pages workflow was moved to `.github/workflows-disabled/deploy.github-pages.yml` so it no longer deploys the static-only version of the site. `public/CNAME` was moved to `.github/workflows-disabled/CNAME.github-pages-disabled`; that file was only needed for GitHub Pages and is no longer emitted by the Cloudflare Pages build.
+
+## Cloudflare Pages Deployment
+
+Required settings:
+
+- Framework preset: `Vite`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Root directory: `/`
+- Functions directory: `functions`
+
+Deployment steps:
+
+1. Push this repository to GitHub.
+2. In Cloudflare Dashboard, go to Workers & Pages.
+3. Create a Pages project and connect it to Git.
+4. Select this repository.
+5. Use the settings above.
+6. Deploy and test the generated `pages.dev` URL first.
+7. Run `curl -I -H "Accept: text/markdown" https://PROJECT_NAME.pages.dev/`.
+8. Run `curl -H "Accept: text/markdown" https://PROJECT_NAME.pages.dev/`.
+9. If `pages.dev` passes, add `mujii.dev` as a custom domain in Cloudflare Pages.
+10. Remove old GitHub Pages DNS records, including A records pointing to GitHub Pages IPs and CNAME records pointing to `username.github.io`.
+11. Use the DNS record Cloudflare Pages provides.
+12. Purge Cloudflare cache if needed.
+13. Verify `https://mujii.dev/` with the curl commands below.
+
+Expected result:
+
+- `text/markdown` requests return markdown.
+- Normal browser requests return HTML.
+- IsYourSiteAgentReady Markdown Negotiation should pass.
 
 After Cloudflare Pages deployment, test:
 
