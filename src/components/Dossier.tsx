@@ -67,7 +67,11 @@ export default function Dossier() {
                   >
                     <span className="flex items-center gap-3.5">
                       {cert.done ? (
-                        <Check className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" focusable="false" />
+                        <Check
+                          className="h-4 w-4 shrink-0 text-accent"
+                          aria-hidden="true"
+                          focusable="false"
+                        />
                       ) : (
                         <span className="flex h-4 w-4 shrink-0 items-center justify-center" aria-hidden="true">
                           <span className="status-dot" />
@@ -105,7 +109,7 @@ export default function Dossier() {
               <div className="mb-7 flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3.5">
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-secondary">
-                    <FileText className="h-5 w-5 text-accent" />
+                    <FileText className="h-5 w-5 text-accent" aria-hidden="true" focusable="false" />
                   </span>
                   <div>
                     <p className="font-mono text-sm text-foreground">Mujtaba_Shahid_CV.pdf</p>
@@ -124,7 +128,7 @@ export default function Dossier() {
                     className="flex w-full items-center justify-center gap-2.5 rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-accent-foreground transition-transform hover:-translate-y-px active:scale-[0.98]"
                     data-testid="btn-download-pdf"
                   >
-                    <Download className="h-4 w-4" />
+                    <Download className="h-4 w-4" aria-hidden="true" focusable="false" />
                     Download PDF
                   </a>
                 </Magnetic>
@@ -135,7 +139,7 @@ export default function Dossier() {
                       className="flex w-full items-center justify-center gap-2.5 rounded-full border border-border px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-accent/50 active:scale-[0.98]"
                       data-testid="btn-fullscreen-pdf"
                     >
-                      <Maximize2 className="h-4 w-4 text-accent" />
+                      <Maximize2 className="h-4 w-4 text-accent" aria-hidden="true" focusable="false" />
                       View fullscreen
                     </button>
                   </DialogTrigger>

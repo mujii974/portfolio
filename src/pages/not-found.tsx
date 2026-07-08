@@ -30,7 +30,11 @@ export default function NotFound() {
         className="group inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-accent-foreground transition-transform hover:-translate-y-px active:scale-[0.97]"
         data-testid="link-home"
       >
-        <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
+        <ArrowLeft
+          className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-0.5"
+          aria-hidden="true"
+          focusable="false"
+        />
         Back to base
       </Link>
     </div>

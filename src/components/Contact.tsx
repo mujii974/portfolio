@@ -100,9 +100,13 @@ export default function Contact() {
                   className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-base font-medium text-accent-foreground shadow-lg transition-transform active:scale-[0.97]"
                   data-testid="btn-email-me"
                 >
-                  <Mail className="h-5 w-5" />
+                  <Mail className="h-5 w-5" aria-hidden="true" focusable="false" />
                   Email me
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight
+                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    aria-hidden="true"
+                    focusable="false"
+                  />
                 </a>
               </Magnetic>
             </Reveal>
@@ -135,14 +139,22 @@ export default function Contact() {
                   data-testid={`contact-${link.meta}`}
                 >
                   <span className="flex min-w-0 items-center gap-4">
-                    <link.icon className="h-[18px] w-[18px] shrink-0 text-accent" />
+                    <link.icon
+                      className="h-[18px] w-[18px] shrink-0 text-accent"
+                      aria-hidden="true"
+                      focusable="false"
+                    />
                     <span className="truncate text-sm text-foreground transition-transform duration-300 group-hover:translate-x-1.5 sm:text-base">
                       {link.label}
                     </span>
                   </span>
                   <span className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                     {link.meta}
-                    <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                    <ArrowUpRight
+                      className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
+                      aria-hidden="true"
+                      focusable="false"
+                    />
                   </span>
                 </a>
               </li>
@@ -166,7 +178,11 @@ export default function Contact() {
               data-testid="btn-back-top"
             >
               top
-              <ArrowUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
+              <ArrowUp
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+                focusable="false"
+              />
             </button>
           </div>
         </div>

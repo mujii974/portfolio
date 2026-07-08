@@ -100,7 +100,11 @@ export default function Hero() {
                 data-testid="btn-view-work"
               >
                 View my work
-                <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                <ArrowDown
+                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5"
+                  aria-hidden="true"
+                  focusable="false"
+                />
               </button>
             </Magnetic>
             <Magnetic strength={0.22}>
@@ -110,7 +114,7 @@ export default function Hero() {
                 className="flex items-center gap-2.5 rounded-full border border-border bg-card/60 px-7 py-3.5 text-sm font-medium text-foreground backdrop-blur transition-colors hover:border-accent/50 active:scale-[0.97]"
                 data-testid="btn-download-cv"
               >
-                <FileDown className="h-4 w-4 text-accent" />
+                <FileDown className="h-4 w-4 text-accent" aria-hidden="true" focusable="false" />
                 Download CV
               </a>
             </Magnetic>

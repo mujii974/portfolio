@@ -33,7 +33,11 @@ function ThemeToggle({ className }: { className?: string }) {
         transition={{ duration: 0.45, ease: EASE }}
         className="flex"
       >
-        {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        {dark ? (
+          <Sun className="h-4 w-4" aria-hidden="true" focusable="false" />
+        ) : (
+          <Moon className="h-4 w-4" aria-hidden="true" focusable="false" />
+        )}
       </motion.span>
     </button>
   );
@@ -176,7 +180,11 @@ export default function SiteNav() {
               data-testid="nav-hire"
             >
               Hire me
-              <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight
+                className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+                focusable="false"
+              />
             </a>
             <ThemeToggle />
             <button

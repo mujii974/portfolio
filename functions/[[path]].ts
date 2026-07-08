@@ -9,13 +9,32 @@ const discoveryLinkHeader =
 
 const homepageMarkdown = `# Mujtaba Shahid Portfolio
 
-Canonical URL: https://mujii.dev/
+Official site: [https://mujii.dev/](https://mujii.dev/)
 
 ## Overview
 
-Mujtaba Shahid is a cybersecurity and secure software development professional based in Doha, Qatar. His portfolio focuses on penetration testing, zero-trust architecture, secure web systems, and AI-agent security.
+Mujtaba Shahid is a cybersecurity and secure software development professional based in Doha, Qatar. His portfolio focuses on penetration testing, zero-trust architecture, AI-agent security, secure web systems, and resilient software development.
 
-## Professional Focus
+## Key Resources
+
+- [Homepage](https://mujii.dev/)
+- [Full LLM Context](https://mujii.dev/llms-full.txt)
+- [Sitemap](https://mujii.dev/sitemap.xml)
+- [Auth.md](https://mujii.dev/auth.md)
+- [Agent Skills Index](https://mujii.dev/.well-known/agent-skills/index.json)
+- [API Catalog](https://mujii.dev/.well-known/api-catalog)
+- [MCP Server Card](https://mujii.dev/.well-known/mcp/server-card.json)
+
+## Main Sections
+
+- [Profile](https://mujii.dev/#about)
+- [Work](https://mujii.dev/#projects)
+- [Trajectory](https://mujii.dev/#experience)
+- [Arsenal](https://mujii.dev/#skills)
+- [Dossier](https://mujii.dev/#cv)
+- [Contact](https://mujii.dev/#contact)
+
+## Focus Areas
 
 - Cybersecurity
 - Secure software development
@@ -25,30 +44,20 @@ Mujtaba Shahid is a cybersecurity and secure software development professional b
 - Penetration testing
 - Frontend and full-stack development
 
-## Projects
+## Project Themes
 
-1. Decentralized Zero-Trust Proxy for MCP and AI agents
-2. Secure web systems
-3. University and startup software projects
-4. Security-focused application development
+- Decentralized zero-trust proxy for MCP and AI agents
+- Secure web systems
+- University and startup software projects
+- Security-focused application development
 
 ## Contact
 
-Use the public contact links on https://mujii.dev/.
+Use the public contact links on [https://mujii.dev/](https://mujii.dev/).
 
 ## Agent Guidance
 
-This is a public read-only portfolio. There are no public account-registration flows, OAuth login flows, protected API scopes, payment flows, or private agent actions.
-
-## Canonical Links
-
-- Homepage: https://mujii.dev/
-- Short agent summary: https://mujii.dev/llms.txt
-- Full agent context: https://mujii.dev/llms-full.txt
-- Auth notes: https://mujii.dev/auth.md
-- API catalog: https://mujii.dev/.well-known/api-catalog
-- Agent skills: https://mujii.dev/.well-known/agent-skills/index.json
-- MCP server card: https://mujii.dev/.well-known/mcp/server-card.json
+This is a public read-only portfolio. Agents may read and summarize public content, but must not invent projects, credentials, private contact details, hidden capabilities, OAuth-protected resources, or commerce flows.
 `;
 
 type PagesContext = {

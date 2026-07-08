@@ -97,7 +97,7 @@ export default function Admin() {
         >
           <div className="flex flex-col items-center text-center mb-6">
             <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-              <Lock className="w-5 h-5 text-accent" />
+              <Lock className="w-5 h-5 text-accent" aria-hidden="true" focusable="false" />
             </div>
             <h1 className="text-xl font-mono font-bold">
               <span className="text-accent">/</span> message inbox
@@ -126,7 +126,7 @@ export default function Admin() {
 
           {errorMsg && (
             <div className="flex items-center gap-2 text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3 mb-4">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+              <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" focusable="false" />
               {errorMsg}
             </div>
           )}
@@ -139,12 +139,12 @@ export default function Admin() {
           >
             {loading ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" focusable="false" />
                 Unlocking…
               </>
             ) : (
               <>
-                <Lock className="w-4 h-4" />
+                <Lock className="w-4 h-4" aria-hidden="true" focusable="false" />
                 Unlock
               </>
             )}
@@ -178,6 +178,8 @@ export default function Admin() {
             >
               <RefreshCw
                 className={`w-4 h-4 ${loading ? "animate-spin" : ""}`}
+                aria-hidden="true"
+                focusable="false"
               />
               Refresh
             </button>
@@ -187,7 +189,7 @@ export default function Admin() {
               aria-label="Lock"
               className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card text-sm font-mono hover:border-accent hover:text-accent transition-colors"
             >
-              <LogOut className="w-4 h-4" />
+              <LogOut className="w-4 h-4" aria-hidden="true" focusable="false" />
               Lock
             </button>
           </div>
@@ -195,14 +197,18 @@ export default function Admin() {
 
         {errorMsg && (
           <div className="flex items-center gap-2 text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3 mb-6">
-            <AlertCircle className="w-4 h-4 shrink-0" />
+            <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" focusable="false" />
             {errorMsg}
           </div>
         )}
 
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center py-24 border border-dashed border-border rounded-2xl">
-            <Inbox className="w-10 h-10 text-muted-foreground mb-4" />
+            <Inbox
+              className="w-10 h-10 text-muted-foreground mb-4"
+              aria-hidden="true"
+              focusable="false"
+            />
             <p className="text-muted-foreground font-mono text-sm">
               No messages yet.
             </p>
@@ -224,7 +230,11 @@ export default function Admin() {
                       href={`mailto:${msg.email}`}
                       className="flex items-center gap-1.5 text-sm text-accent hover:underline break-all"
                     >
-                      <Mail className="w-3.5 h-3.5 shrink-0" />
+                      <Mail
+                        className="w-3.5 h-3.5 shrink-0"
+                        aria-hidden="true"
+                        focusable="false"
+                      />
                       {msg.email}
                     </a>
                   </div>

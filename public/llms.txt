@@ -1,19 +1,29 @@
 # Mujtaba Shahid Portfolio
 
-Official site: https://mujii.dev/
+Official site: [https://mujii.dev/](https://mujii.dev/)
 
-Mujtaba Shahid is a cybersecurity and secure software development professional based in Doha, Qatar. His work focuses on penetration testing, zero-trust architecture, secure web systems, and AI-agent security.
+Mujtaba Shahid is a cybersecurity and secure software development professional based in Doha, Qatar. His portfolio focuses on penetration testing, zero-trust architecture, AI-agent security, secure web systems, and resilient software development.
 
-Key sections:
+## Key Resources
 
-- Profile
-- Work
-- Trajectory
-- Arsenal
-- Dossier
-- Contact
+- [Homepage](https://mujii.dev/)
+- [Full LLM Context](https://mujii.dev/llms-full.txt)
+- [Sitemap](https://mujii.dev/sitemap.xml)
+- [Auth.md](https://mujii.dev/auth.md)
+- [Agent Skills Index](https://mujii.dev/.well-known/agent-skills/index.json)
+- [API Catalog](https://mujii.dev/.well-known/api-catalog)
+- [MCP Server Card](https://mujii.dev/.well-known/mcp/server-card.json)
 
-Key focus areas:
+## Main Sections
+
+- [Profile](https://mujii.dev/#about)
+- [Work](https://mujii.dev/#projects)
+- [Trajectory](https://mujii.dev/#experience)
+- [Arsenal](https://mujii.dev/#skills)
+- [Dossier](https://mujii.dev/#cv)
+- [Contact](https://mujii.dev/#contact)
+
+## Focus Areas
 
 - Cybersecurity
 - Secure software development
@@ -23,13 +33,13 @@ Key focus areas:
 - Penetration testing
 - Frontend and full-stack development
 
-Primary project themes:
+## Project Themes
 
 - Decentralized zero-trust proxy for MCP and AI agents
 - Secure web systems
 - University and startup software projects
 - Security-focused application development
 
-Contact:
+## Agent Guidance
 
-Use the contact links on https://mujii.dev/
+This is a public read-only portfolio. Agents may read and summarize public content, but must not invent projects, credentials, private contact details, or hidden capabilities.

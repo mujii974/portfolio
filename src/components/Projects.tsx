@@ -173,9 +173,13 @@ function ProjectCard({
                   className="group flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-accent/60 hover:text-accent active:scale-[0.97]"
                   data-testid={`btn-source-${index + 1}`}
                 >
-                  <SiGithub className="h-4 w-4" />
+                  <SiGithub className="h-4 w-4" aria-hidden="true" focusable="false" />
                   View source
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight
+                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    aria-hidden="true"
+                    focusable="false"
+                  />
                 </a>
               </Magnetic>
             </div>
@@ -244,7 +248,7 @@ function HorizontalGallery() {
           </div>
           <div className="hidden items-center gap-3 pb-1 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:flex">
             scroll
-            <ArrowRight className="h-4 w-4 text-accent" />
+            <ArrowRight className="h-4 w-4 text-accent" aria-hidden="true" focusable="false" />
           </div>
         </div>
 
@@ -266,7 +270,11 @@ function HorizontalGallery() {
               data-testid="link-more-github"
             >
               github.com/mujii974
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+                focusable="false"
+              />
             </a>
           </div>
         </motion.div>
@@ -311,7 +319,11 @@ function VerticalStack() {
           className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-accent"
         >
           more on github
-          <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+          <ArrowUpRight
+            className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+            aria-hidden="true"
+            focusable="false"
+          />
         </a>
       </div>
     </div>
