@@ -1,5 +1,42 @@
 # Agent Readiness Notes
 
+## Markdown Negotiation Deployment Requirement
+
+Markdown Negotiation requires a request-aware edge/runtime. GitHub Pages cannot vary the homepage body by Accept header.
+
+This repository currently contains a GitHub Pages workflow at `.github/workflows/deploy.yml`. That workflow builds with `npm run build`, uploads `dist`, and serves the custom domain from `public/CNAME`. This is static-only hosting, so `curl -H "Accept: text/markdown" https://mujii.dev/` will keep returning HTML while the live site remains on GitHub Pages.
+
+To pass the audit, deploy this site to Cloudflare Pages with:
+
+- Build command: `npm run build`
+- Output directory: `dist`
+- Functions directory: `functions`
+
+After Cloudflare Pages deployment, test:
+
+```sh
+curl -I -H "Accept: text/markdown" https://mujii.dev/
+```
+
+Expected:
+
+```txt
+Content-Type: text/markdown; charset=utf-8
+Vary: Accept
+```
+
+Then test:
+
+```sh
+curl -H "Accept: text/markdown" https://mujii.dev/
+```
+
+Expected markdown starts with:
+
+```md
+# Mujtaba Shahid Portfolio
+```
+
 ## DNS-AID
 
 The DNS-AID check requires DNS records under the `mujii.dev` zone. This cannot be fully implemented from the application repository.

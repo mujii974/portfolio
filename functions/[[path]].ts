@@ -1,11 +1,10 @@
 const discoveryLinkHeader =
-  '</sitemap.xml>; rel="sitemap"; type="application/xml", ' +
   '</llms.txt>; rel="describedby"; type="text/plain", ' +
   '</llms-full.txt>; rel="describedby"; type="text/markdown", ' +
+  '</sitemap.xml>; rel="sitemap"; type="application/xml", ' +
   '</auth.md>; rel="authorization"; type="text/markdown", ' +
-  '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json", ' +
   '</.well-known/agent-skills/index.json>; rel="service-desc"; type="application/json", ' +
-  '</.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"';
+  '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"';
 
 const homepageMarkdown = `# Mujtaba Shahid Portfolio
 
@@ -18,46 +17,35 @@ Mujtaba Shahid is a cybersecurity and secure software development professional b
 ## Key Resources
 
 - [Homepage](https://mujii.dev/)
+- [LLMS Summary](https://mujii.dev/llms.txt)
 - [Full LLM Context](https://mujii.dev/llms-full.txt)
 - [Sitemap](https://mujii.dev/sitemap.xml)
 - [Auth.md](https://mujii.dev/auth.md)
 - [Agent Skills Index](https://mujii.dev/.well-known/agent-skills/index.json)
 - [API Catalog](https://mujii.dev/.well-known/api-catalog)
-- [MCP Server Card](https://mujii.dev/.well-known/mcp/server-card.json)
 
 ## Main Sections
 
-- [Profile](https://mujii.dev/#about)
-- [Work](https://mujii.dev/#projects)
-- [Trajectory](https://mujii.dev/#experience)
-- [Arsenal](https://mujii.dev/#skills)
-- [Dossier](https://mujii.dev/#cv)
+- [Profile](https://mujii.dev/#profile)
+- [Work](https://mujii.dev/#work)
+- [Trajectory](https://mujii.dev/#trajectory)
+- [Arsenal](https://mujii.dev/#arsenal)
+- [Dossier](https://mujii.dev/#dossier)
 - [Contact](https://mujii.dev/#contact)
 
-## Focus Areas
+## Professional Focus
 
 - Cybersecurity
 - Secure software development
 - Web application security
 - AI-agent security
-- Zero-trust systems
+- Zero-trust architecture
 - Penetration testing
-- Frontend and full-stack development
-
-## Project Themes
-
-- Decentralized zero-trust proxy for MCP and AI agents
-- Secure web systems
-- University and startup software projects
-- Security-focused application development
-
-## Contact
-
-Use the public contact links on [https://mujii.dev/](https://mujii.dev/).
+- Resilient web systems
 
 ## Agent Guidance
 
-This is a public read-only portfolio. Agents may read and summarize public content, but must not invent projects, credentials, private contact details, hidden capabilities, OAuth-protected resources, or commerce flows.
+This is a public read-only portfolio. AI agents may read and summarize public content, but must not invent projects, credentials, private contact details, hidden APIs, authentication flows, commerce capabilities, or private data.
 `;
 
 type PagesContext = {
@@ -81,10 +69,10 @@ function appendVary(headers: Headers, value: string) {
 export const onRequest = async (context: PagesContext) => {
   const { request, next } = context;
   const url = new URL(request.url);
-  const accept = request.headers.get("Accept") ?? "";
-  const isHomepage = url.pathname === "/" || url.pathname === "";
+  const accept = request.headers.get("accept") || "";
+  const isHomepage = url.pathname === "/" || url.pathname === "/index.html";
 
-  if (isHomepage && accept.includes("text/markdown")) {
+  if (isHomepage && accept.toLowerCase().includes("text/markdown")) {
     return new Response(homepageMarkdown, {
       status: 200,
       headers: {
@@ -104,7 +92,9 @@ export const onRequest = async (context: PagesContext) => {
   }
 
   const headers = new Headers(response.headers);
-  headers.set("Link", discoveryLinkHeader);
+  if (!headers.has("Link")) {
+    headers.set("Link", discoveryLinkHeader);
+  }
   appendVary(headers, "Accept");
 
   return new Response(response.body, {
