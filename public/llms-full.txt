@@ -24,12 +24,21 @@ World Cup 2022 in Doha.
 
 - Penetration testing and web application security
 - Zero-trust system design
-- Secure software development
+- Secure software development and secure SDLC
+- IoT/OT security and incident response
 - AI-agent and MCP security
+- Application security and full-stack development (Flutter, Firebase)
 - Practical cybersecurity labs and defensive tooling
 
 ## Experience
 
+- **Applications Security & Development Intern** — Uni Eats for Technology &
+  Services W.L.L., Doha, Qatar
+  Intern, May 2026 – Jul 2026
+  Led the design and build of three Flutter apps (Customer, Restaurant,
+  Driver), an admin dashboard, and the company website end-to-end on Firebase;
+  ran blue/red team security audits documenting 100+ issues; authored 12
+  company policies mapped to Qatar's PDPL.
 - **Web Developer & Designer** — NOVERA.DEV, Doha, Qatar
   Intern, May 2025 – Jan 2026
 - **Event Operations Coordinator** — The Planners W.L.L., FIFA World Cup 2022
@@ -70,16 +79,18 @@ More projects: https://github.com/mujii974/
 
 - **Security, hands-on**: Metasploit, MSFvenom, Burp Suite, Nmap, Wireshark,
   Tcpdump, Nessus, OpenVAS, Aircrack-ng, Splunk
-- **Security, studied**: BloodHound, Mimikatz, Impacket, Hydra, Hashcat,
-  SQLmap, Snort, Suricata
-- **Languages**: Python, Java, Bash, SQL, PowerShell, JavaScript, HTML/CSS,
-  YAML
-- **Frameworks**: MITRE ATT&CK, NIST CSF, OWASP Top 10, Zero Trust, STRIDE,
-  PASTA, ISO 27001
-- **Dev & lab**: Git, Docker, VS Code, IntelliJ IDEA, VMware, VirtualBox,
-  Kali Linux, Ubuntu
-- **IoT / OT**: Raspberry Pi, Binwalk, MQTT, Arduino, ESP32, Zigbee
-- **Web dev**: Shopify, WordPress, Elementor, WooCommerce, Node.js
+- **Security, studied**: BloodHound, Mimikatz, Impacket, CrackMapExec, Hydra,
+  Hashcat, John the Ripper, SQLmap, Scapy, Snort, Suricata, Empire
+- **Languages**: Python, Java, Dart, Bash, SQL, PowerShell, JavaScript,
+  HTML/CSS, YAML
+- **Frameworks**: MITRE ATT&CK, NIST CSF, OWASP Top 10, SANS, Cyber Kill Chain,
+  Diamond Model, Zero Trust, STRIDE, PASTA, DREAD, ISO 27001
+- **Dev & lab**: Git, GitHub, Docker, VS Code, IntelliJ IDEA, Eclipse, VMware,
+  VirtualBox, Kali Linux, Ubuntu
+- **IoT / OT**: Raspberry Pi, Binwalk, MQTT, Arduino, ESP32, HackRF, RTL-SDR,
+  QEMU, Zigbee, Z-Wave
+- **App & web**: Flutter, Firebase (Firestore, Auth, Cloud Functions),
+  Firestore Security Rules, REST APIs, Node.js, Shopify, WordPress, CI/CD
 
 ## Contact
 

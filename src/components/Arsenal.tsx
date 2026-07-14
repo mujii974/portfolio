@@ -15,19 +15,19 @@ const GROUPS = [
     title: "Security · studied",
     tag: "research",
     blurb: "Studied in depth through coursework and self-directed research.",
-    skills: ["BloodHound", "Mimikatz", "Impacket", "Hydra", "Hashcat", "SQLmap", "Snort", "Suricata"],
+    skills: ["BloodHound", "Mimikatz", "Impacket", "CrackMapExec", "Hydra", "Hashcat", "John the Ripper", "SQLmap", "Scapy", "Snort", "Suricata", "Empire"],
   },
   {
     title: "Languages",
     tag: "code",
     blurb: "Where I'm fluent enough to both build and break.",
-    skills: ["Python", "Java", "Bash", "SQL", "PowerShell", "JavaScript", "HTML/CSS", "YAML"],
+    skills: ["Python", "Java", "Dart", "Bash", "SQL", "PowerShell", "JavaScript", "HTML/CSS", "YAML"],
   },
   {
     title: "Frameworks",
     tag: "defense",
     blurb: "The models I threat-model with and design controls around.",
-    skills: ["MITRE ATT&CK", "NIST CSF", "OWASP Top 10", "Zero Trust", "STRIDE", "PASTA", "ISO 27001"],
+    skills: ["MITRE ATT&CK", "NIST CSF", "OWASP Top 10", "SANS", "Cyber Kill Chain", "Diamond Model", "Zero Trust", "STRIDE", "PASTA", "DREAD", "ISO 27001"],
   },
   {
     title: "Dev & lab",
@@ -39,13 +39,13 @@ const GROUPS = [
     title: "IoT / OT",
     tag: "hardware",
     blurb: "Firmware, sensors, and the physical attack surface.",
-    skills: ["Raspberry Pi", "Binwalk", "MQTT", "Arduino", "ESP32", "Zigbee"],
+    skills: ["Raspberry Pi", "Binwalk", "MQTT", "Arduino", "ESP32", "HackRF", "RTL-SDR", "QEMU", "Zigbee", "Z-Wave"],
   },
   {
-    title: "Web dev",
+    title: "App & web",
     tag: "ship",
-    blurb: "What I reach for to ship real client products.",
-    skills: ["Shopify", "WordPress", "Elementor", "WooCommerce", "Node.js"],
+    blurb: "What I reach for to ship — and secure — real products.",
+    skills: ["Flutter", "Firebase", "Firestore Rules", "REST APIs", "Node.js", "Shopify", "WordPress", "CI/CD"],
   },
 ];
 

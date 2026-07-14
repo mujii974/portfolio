@@ -15,6 +15,18 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    title: "Applications Security & Development",
+    org: "Uni Eats for Technology & Services · Doha, Qatar",
+    year: "'26",
+    period: "Intern · May – Jul 2026",
+    points: [
+      "Led design and build of three Flutter apps, an admin dashboard, and the company site end-to-end on Firebase",
+      "Ran blue/red team audits documenting 100+ issues — auth bypass, insecure token storage, a Driver App data leak",
+      "Authored 12 PDPL-mapped company policies; rebuilt the order state machine and fixed payment race conditions",
+    ],
+    kind: "work",
+  },
+  {
     title: "Web Developer & Designer",
     org: "NOVERA.DEV · Doha, Qatar",
     year: "'25 — '26",
@@ -191,7 +203,7 @@ export default function Trajectory() {
           className="absolute left-[-3px] hidden h-[7px] w-[7px] -translate-y-1/2 rounded-full bg-accent shadow-[0_0_12px_2px_rgba(var(--accent-rgb),0.7)] motion-safe:block"
         />
 
-        <SectionDivider label="Experience" count="3 roles" />
+        <SectionDivider label="Experience" count="4 roles" />
         <ol className="mb-14 grid gap-3">
           {work.map((entry, i) => (
             <EntryRow key={entry.title} entry={entry} index={i} />

@@ -62,9 +62,10 @@ export default function About() {
           </Reveal>
           <Reveal delay={0.18}>
             <p className="max-w-[62ch] text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Outside the lab, I&rsquo;ve shipped real products at agencies and worked
-              live events under pressure, including a World Cup. Currently
-              completing CEH v13.
+              Most recently I led a Flutter + Firebase app platform end to end
+              &mdash; building it, then red-teaming my own work. Before that,
+              production web at agencies and live events under pressure,
+              including a World Cup. Currently completing CEH v13.
             </p>
           </Reveal>
 
